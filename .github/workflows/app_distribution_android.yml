@@ -1,0 +1,70 @@
+name: Firebase App Distribution [android]
+
+on:
+  workflow_dispatch:
+    inputs:
+      testers:
+        description: "Testers (delimited by ',')"
+        required: false
+        default: "markcabalona58@gmail.com"
+      build_name:
+        description: "Build Name (eg. '1.0.0+1')"
+        required: true
+        default: '1.0.0'
+      release_notes:
+        description: 'Release Notes'
+        required: true
+        default: 'General improvements'
+      build_type:
+        description: 'Build Type'
+        required: false
+        default: 'debug'
+        
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+      
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.10.6'
+        channel: 'stable'
+        cache: true
+        cache-key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
+    
+    - name: Display Flutter Version
+      run: flutter --version
+
+    - name: Clean Flutter Project
+      run: flutter clean
+
+    - name: Get Flutter Dependencies
+      run: flutter pub get
+
+    - name: Format Flutter Code
+      run: dart format --set-exit-if-changed .
+
+    - name: Analyze Flutter Code
+      run: flutter analyze .
+
+    - name: Build APK
+      run: flutter build apk --${{ github.event.inputs.build_type }} --split-debug-info=build/app/outputs/symbols --build-name=${{ github.event.inputs.build_name }}
+
+    # Upload generated APK to artifacts.
+    - name: Upload APK to Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: apk-${{ github.event.inputs.build_type }}
+        path: build/app/outputs/flutter-apk/app-${{ github.event.inputs.build_type }}.apk
+        
+    - name: Setup Firebase CLI
+      run: npm install -g firebase-tools@9.16.6
+
+    - name: Distribute app to Firebase
+      run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-${{ github.event.inputs.build_type }}.apk  --token ${{ secrets.FIREBASE_TOKEN }} --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --testers "${{ github.event.inputs.testers }}" --release-notes "${{ github.event.inputs.release_notes }}"
+
