@@ -1,4 +1,4 @@
-package com.example.tup_ar
+package com.markcabalona.tup_ar
 
 import io.flutter.embedding.android.FlutterActivity
 
