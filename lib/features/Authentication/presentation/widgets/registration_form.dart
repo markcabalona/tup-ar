@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
+import 'package:tup_ar/core/constants/grid_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
 
 class RegistrationForm extends StatelessWidget {
@@ -10,7 +10,10 @@ class RegistrationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: PaddingConstants.horizontal,
+      padding: const EdgeInsets.symmetric(
+        horizontal: GridConstants.small,
+        vertical: GridConstants.medium,
+      ),
       child: Column(
         children: [
           const TextField(
@@ -20,7 +23,7 @@ class RegistrationForm extends StatelessWidget {
             ),
             keyboardType: TextInputType.name,
           ),
-          SpacerConstants.vertical,
+          SpacerConstants.mediumVertical,
           const TextField(
             decoration: InputDecoration(
               labelText: AuthConstants.lastNameLabelText,
@@ -28,7 +31,7 @@ class RegistrationForm extends StatelessWidget {
             ),
             keyboardType: TextInputType.name,
           ),
-          SpacerConstants.vertical,
+          SpacerConstants.mediumVertical,
           const TextField(
             decoration: InputDecoration(
               labelText: AuthConstants.emailLabelText,
@@ -36,7 +39,7 @@ class RegistrationForm extends StatelessWidget {
             ),
             keyboardType: TextInputType.emailAddress,
           ),
-          SpacerConstants.vertical,
+          SpacerConstants.mediumVertical,
           const TextField(
             decoration: InputDecoration(
               labelText: AuthConstants.passwordLabelText,
@@ -44,7 +47,7 @@ class RegistrationForm extends StatelessWidget {
             ),
             keyboardType: TextInputType.visiblePassword,
           ),
-          SpacerConstants.vertical,
+          SpacerConstants.mediumVertical,
           const TextField(
             decoration: InputDecoration(
               labelText: AuthConstants.confirmPasswordLabelText,
@@ -53,18 +56,15 @@ class RegistrationForm extends StatelessWidget {
             keyboardType: TextInputType.visiblePassword,
           ),
           SpacerConstants.mediumVertical,
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: _onTapRegister,
-              child: const Text(
-                AuthConstants.registerText,
-              ),
+          FilledButton(
+            onPressed: _onTapRegister,
+            child: const Text(
+              AuthConstants.registerText,
             ),
           ),
           SpacerConstants.mediumVertical,
           Text.rich(
-            TextSpan( 
+            TextSpan(
               children: [
                 const TextSpan(
                   text: '${AuthConstants.alreadyHaveAnAccount} ',
