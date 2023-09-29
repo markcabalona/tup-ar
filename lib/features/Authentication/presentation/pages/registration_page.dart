@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tup_ar/core/constants/authentication_constants.dart';
+import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/registration_form.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class RegistrationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          AuthenticationConstants.registrationHeaderText,
+          AuthConstants.registrationHeaderText,
         ),
       ),
       body: const RegistrationForm(),

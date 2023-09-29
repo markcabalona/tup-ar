@@ -1,4 +1,4 @@
-abstract class AuthenticationConstants {
+abstract class AuthConstants {
   static const registrationHeaderText = 'Registration';
 
   static const firstNameLabelText = 'First Name';

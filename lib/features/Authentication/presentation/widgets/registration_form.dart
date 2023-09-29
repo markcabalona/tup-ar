@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tup_ar/core/constants/authentication_constants.dart';
+import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/padding_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
 
@@ -15,40 +15,40 @@ class RegistrationForm extends StatelessWidget {
         children: [
           const TextField(
             decoration: InputDecoration(
-              labelText: AuthenticationConstants.firstNameLabelText,
-              hintText: AuthenticationConstants.firstNameHintText,
+              labelText: AuthConstants.firstNameLabelText,
+              hintText: AuthConstants.firstNameHintText,
             ),
             keyboardType: TextInputType.name,
           ),
           SpacerConstants.vertical,
           const TextField(
             decoration: InputDecoration(
-              labelText: AuthenticationConstants.lastNameLabelText,
-              hintText: AuthenticationConstants.lastNameHintText,
+              labelText: AuthConstants.lastNameLabelText,
+              hintText: AuthConstants.lastNameHintText,
             ),
             keyboardType: TextInputType.name,
           ),
           SpacerConstants.vertical,
           const TextField(
             decoration: InputDecoration(
-              labelText: AuthenticationConstants.emailLabelText,
-              hintText: AuthenticationConstants.emailHintText,
+              labelText: AuthConstants.emailLabelText,
+              hintText: AuthConstants.emailHintText,
             ),
             keyboardType: TextInputType.emailAddress,
           ),
           SpacerConstants.vertical,
           const TextField(
             decoration: InputDecoration(
-              labelText: AuthenticationConstants.passwordLabelText,
-              hintText: AuthenticationConstants.passwordHintText,
+              labelText: AuthConstants.passwordLabelText,
+              hintText: AuthConstants.passwordHintText,
             ),
             keyboardType: TextInputType.visiblePassword,
           ),
           SpacerConstants.vertical,
           const TextField(
             decoration: InputDecoration(
-              labelText: AuthenticationConstants.confirmPasswordLabelText,
-              hintText: AuthenticationConstants.confirmPasswordHintText,
+              labelText: AuthConstants.confirmPasswordLabelText,
+              hintText: AuthConstants.confirmPasswordHintText,
             ),
             keyboardType: TextInputType.visiblePassword,
           ),
@@ -58,7 +58,7 @@ class RegistrationForm extends StatelessWidget {
             child: FilledButton(
               onPressed: _onTapRegister,
               child: const Text(
-                AuthenticationConstants.registerText,
+                AuthConstants.registerText,
               ),
             ),
           ),
@@ -67,10 +67,10 @@ class RegistrationForm extends StatelessWidget {
             TextSpan( 
               children: [
                 const TextSpan(
-                  text: '${AuthenticationConstants.alreadyHaveAnAccount} ',
+                  text: '${AuthConstants.alreadyHaveAnAccount} ',
                 ),
                 TextSpan(
-                  text: AuthenticationConstants.loginText,
+                  text: AuthConstants.loginText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor,
