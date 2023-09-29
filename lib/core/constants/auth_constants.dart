@@ -11,7 +11,7 @@ abstract class AuthConstants {
   static const emailHintText = 'example@email.com';
 
   static const passwordLabelText = 'Password';
-  static const passwordHintText = 'Enter your passowrd';
+  static const passwordHintText = 'Enter your password';
 
   static const confirmPasswordLabelText = 'Confirm Password';
   static const confirmPasswordHintText = 'Re-enter your password';
