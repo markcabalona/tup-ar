@@ -21,4 +21,8 @@ abstract class AuthConstants {
   static const alreadyHaveAnAccount = 'Already have an account?';
 
   static const loginText = 'Login';
+
+  static const firstNameFieldError = 'First Name can not be empty';
+  static const lastNameFieldError = 'Last Name can not be empty';
+  static const confirmPasswordFieldError = 'Password does not match';
 }
