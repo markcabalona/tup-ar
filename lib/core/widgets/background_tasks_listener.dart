@@ -55,7 +55,7 @@ class _BackgroundTaskStateDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(),
+            child,
             if (message != null) ...[
               SpacerConstants.mediumVertical,
               Text(
@@ -64,6 +64,7 @@ class _BackgroundTaskStateDialog extends StatelessWidget {
                   fontSize: GridConstants.medium,
                   fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.center,
               ),
             ]
           ],
