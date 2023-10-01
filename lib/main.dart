@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/theme/app_theme.dart';
+import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tup_ar/features/Authentication/presentation/pages/registration_page.dart';
 
 void main() {
@@ -21,7 +23,10 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: AppTheme.inputDecorationTheme,
         filledButtonTheme: AppTheme.filledButtonTheme,
       ),
-      home: const RegistrationPage(),
+      home: BlocProvider(
+        create: (context) => AuthenticationBloc(),
+        child: const RegistrationPage(),
+      ),
     );
   }
 }
