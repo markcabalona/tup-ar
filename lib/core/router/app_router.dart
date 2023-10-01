@@ -6,6 +6,7 @@ import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/router/routes/authentication.dart';
 import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tup_ar/features/Authentication/presentation/widgets/authentication_state_listener.dart';
 
 abstract class AppRouter {
   static final GoRouteInformationParser routeInformationParser =
@@ -31,7 +32,9 @@ abstract class AppRouter {
             routes: AuthenticationRoutes.routes,
             builder: (context, state, child) => BlocProvider(
               create: (context) => GetIt.instance<AuthenticationBloc>(),
-              child: child,
+              child: AuthenticationStateListener(
+                child: child,
+              ),
             ),
           ),
         ],
