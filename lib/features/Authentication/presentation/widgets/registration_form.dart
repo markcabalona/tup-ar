@@ -1,15 +1,19 @@
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/grid_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/core/utils/form_validator.dart';
+import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 class RegistrationForm extends StatelessWidget {
   const RegistrationForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.read<AuthenticationBloc>();
     final formKey = GlobalKey<FormState>();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
@@ -32,6 +36,11 @@ class RegistrationForm extends StatelessWidget {
                   errorMessage: AuthConstants.firstNameFieldError,
                 );
               },
+              onChanged: (value) {
+                authBloc.add(UpdateRegistrationFormEvent(
+                  firstName: value,
+                ));
+              },
             ),
             SpacerConstants.mediumVertical,
             TextFormField(
@@ -46,6 +55,11 @@ class RegistrationForm extends StatelessWidget {
                   errorMessage: AuthConstants.lastNameFieldError,
                 );
               },
+              onChanged: (value) {
+                authBloc.add(UpdateRegistrationFormEvent(
+                  lastName: value,
+                ));
+              },
             ),
             SpacerConstants.mediumVertical,
             TextFormField(
@@ -55,6 +69,11 @@ class RegistrationForm extends StatelessWidget {
               ),
               keyboardType: TextInputType.emailAddress,
               validator: FormValidator.emailValidator,
+              onChanged: (value) {
+                authBloc.add(UpdateRegistrationFormEvent(
+                  email: value,
+                ));
+              },
             ),
             SpacerConstants.mediumVertical,
             TextFormField(
@@ -64,6 +83,13 @@ class RegistrationForm extends StatelessWidget {
               ),
               keyboardType: TextInputType.visiblePassword,
               validator: FormValidator.passwordValidator,
+              onChanged: (value) {
+                authBloc.add(
+                  UpdateRegistrationFormEvent(
+                    password: value,
+                  ),
+                );
+              },
             ),
             SpacerConstants.mediumVertical,
             TextFormField(
@@ -73,8 +99,8 @@ class RegistrationForm extends StatelessWidget {
               ),
               keyboardType: TextInputType.visiblePassword,
               validator: (value) {
-                // TODO: check if `value` == to password field's value
-                return null;
+                final password = authBloc.state.registrationFormState.password;
+                return _validateConfirmPassword(value, password);
               },
             ),
             SpacerConstants.mediumVertical,
@@ -117,5 +143,12 @@ class RegistrationForm extends StatelessWidget {
       // TODO: implement action when form has no errors
       // - start registration event
     }
+  }
+
+  String? _validateConfirmPassword(String? value, String? password) {
+    if (password != value) {
+      return AuthConstants.confirmPasswordFieldError;
+    }
+    return null;
   }
 }
