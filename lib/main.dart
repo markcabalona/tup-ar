@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: AppTheme.inputDecorationTheme,
         filledButtonTheme: AppTheme.filledButtonTheme,
       ),
-      routeInformationParser: AppRouter.router.routeInformationParser,
-      routeInformationProvider: AppRouter.router.routeInformationProvider,
-      routerDelegate: AppRouter.router.routerDelegate,
+      routeInformationParser: AppRouter.routeInformationParser,
+      routeInformationProvider: AppRouter.routeInformationProvider,
+      routerDelegate: AppRouter.routerDelegate,
     );
   }
 }

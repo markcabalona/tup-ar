@@ -6,7 +6,15 @@ import 'package:tup_ar/core/router/routes/authentication.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 abstract class AppRouter {
-  static final router = GoRouter(
+  static final GoRouteInformationParser routeInformationParser =
+      _router.routeInformationParser;
+
+  static final GoRouteInformationProvider routeInformationProvider =
+      _router.routeInformationProvider;
+
+  static final GoRouterDelegate routerDelegate = _router.routerDelegate;
+
+  static final _router = GoRouter(
     initialLocation: AppRoutes.registration.path,
     routes: [
       ShellRoute(
@@ -25,7 +33,7 @@ abstract class AppRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    router.goNamed(
+    _router.goNamed(
       route.name,
       extra: extra,
       pathParameters: pathParameters,
@@ -39,7 +47,7 @@ abstract class AppRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    router.pushNamed(
+    _router.pushNamed(
       route.name,
       extra: extra,
       pathParameters: pathParameters,
@@ -53,7 +61,7 @@ abstract class AppRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    router.replaceNamed(
+    _router.replaceNamed(
       route.name,
       extra: extra,
       pathParameters: pathParameters,
@@ -67,7 +75,7 @@ abstract class AppRouter {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    router.pushReplacementNamed(
+    _router.pushReplacementNamed(
       route.name,
       extra: extra,
       pathParameters: pathParameters,
