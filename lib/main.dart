@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tup_ar/core/dependencies/dependencies.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/theme/app_theme.dart';
+import 'package:tup_ar/firebase_options.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await initializeDependencies();
   runApp(const MyApp());
 }
