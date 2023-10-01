@@ -40,6 +40,11 @@ class AuthenticationBloc
     RegisterWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(state.copyWith(
+      errorMessage: () => null,
+      userData: () => null,
+      status: () => AuthenticationStatus.unauthenticated,
+    ));
     final result = await _registrationRepository.registerWithEmail(
       email: state.registrationFormState.email!,
       password: state.registrationFormState.password!,
@@ -48,7 +53,13 @@ class AuthenticationBloc
     );
 
     result.fold(
-      (failure) {},
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+          ),
+        );
+      },
       (userData) {
         emit(state.copyWith(
           userData: () => userData,
