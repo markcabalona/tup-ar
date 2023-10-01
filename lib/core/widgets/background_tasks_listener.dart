@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 
-class BackGroundTasksListener extends StatelessWidget {
+class BackgroundTasksListener extends StatelessWidget {
   final Widget child;
-  const BackGroundTasksListener({
+  const BackgroundTasksListener({
     Key? key,
     required this.child,
   }) : super(key: key);

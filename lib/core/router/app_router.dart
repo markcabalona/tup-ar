@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/router/routes/authentication.dart';
+import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 abstract class AppRouter {
@@ -18,11 +20,21 @@ abstract class AppRouter {
     initialLocation: AppRoutes.registration.path,
     routes: [
       ShellRoute(
-        routes: AuthenticationRoutes.routes,
         builder: (context, state, child) => BlocProvider(
-          create: (context) => GetIt.instance<AuthenticationBloc>(),
-          child: child,
+          create: (context) => GetIt.instance<BackgroundTasksCubit>(),
+          child: BackgroundTasksListener(
+            child: child,
+          ),
         ),
+        routes: [
+          ShellRoute(
+            routes: AuthenticationRoutes.routes,
+            builder: (context, state, child) => BlocProvider(
+              create: (context) => GetIt.instance<AuthenticationBloc>(),
+              child: child,
+            ),
+          ),
+        ],
       ),
     ],
   );
