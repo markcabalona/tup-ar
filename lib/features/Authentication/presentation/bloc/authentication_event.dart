@@ -1,0 +1,24 @@
+part of 'authentication_bloc.dart';
+
+sealed class AuthenticationEvent extends Equatable {
+  const AuthenticationEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdateRegistrationFormEvent extends AuthenticationEvent {
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? password;
+  final String? confirmPassword;
+
+  const UpdateRegistrationFormEvent({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+    this.confirmPassword,
+  });
+}
