@@ -20,3 +20,5 @@ final class UpdateRegistrationFormEvent extends AuthenticationEvent {
     this.password,
   });
 }
+
+class RegisterWithEmailEvent extends AuthenticationEvent {}

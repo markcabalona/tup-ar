@@ -11,6 +11,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc() : super(const AuthenticationState()) {
     on<UpdateRegistrationFormEvent>(_onUpdateRegistrationFormEvent);
+    on<RegisterWithEmailEvent>(_onRegisterWithEmailEvent);
   }
 
   FutureOr<void> _onUpdateRegistrationFormEvent(
@@ -27,5 +28,12 @@ class AuthenticationBloc
         ),
       ),
     );
+  }
+
+  FutureOr<void> _onRegisterWithEmailEvent(
+    RegisterWithEmailEvent event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    // TODO: implement registration with email
   }
 }
