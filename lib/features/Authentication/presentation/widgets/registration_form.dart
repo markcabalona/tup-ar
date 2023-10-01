@@ -3,89 +3,119 @@ import 'package:flutter/material.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/grid_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
+import 'package:tup_ar/core/utils/form_validator.dart';
 
 class RegistrationForm extends StatelessWidget {
   const RegistrationForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
         horizontal: GridConstants.small,
         vertical: GridConstants.medium,
       ),
-      child: Column(
-        children: [
-          const TextField(
-            decoration: InputDecoration(
-              labelText: AuthConstants.firstNameLabelText,
-              hintText: AuthConstants.firstNameHintText,
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: AuthConstants.firstNameLabelText,
+                hintText: AuthConstants.firstNameHintText,
+              ),
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                return FormValidator.nonEmptyValidator(
+                  value,
+                  errorMessage: AuthConstants.firstNameFieldError,
+                );
+              },
             ),
-            keyboardType: TextInputType.name,
-          ),
-          SpacerConstants.mediumVertical,
-          const TextField(
-            decoration: InputDecoration(
-              labelText: AuthConstants.lastNameLabelText,
-              hintText: AuthConstants.lastNameHintText,
+            SpacerConstants.mediumVertical,
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: AuthConstants.lastNameLabelText,
+                hintText: AuthConstants.lastNameHintText,
+              ),
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                return FormValidator.nonEmptyValidator(
+                  value,
+                  errorMessage: AuthConstants.lastNameFieldError,
+                );
+              },
             ),
-            keyboardType: TextInputType.name,
-          ),
-          SpacerConstants.mediumVertical,
-          const TextField(
-            decoration: InputDecoration(
-              labelText: AuthConstants.emailLabelText,
-              hintText: AuthConstants.emailHintText,
+            SpacerConstants.mediumVertical,
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: AuthConstants.emailLabelText,
+                hintText: AuthConstants.emailHintText,
+              ),
+              keyboardType: TextInputType.emailAddress,
+              validator: FormValidator.emailValidator,
             ),
-            keyboardType: TextInputType.emailAddress,
-          ),
-          SpacerConstants.mediumVertical,
-          const TextField(
-            decoration: InputDecoration(
-              labelText: AuthConstants.passwordLabelText,
-              hintText: AuthConstants.passwordHintText,
+            SpacerConstants.mediumVertical,
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: AuthConstants.passwordLabelText,
+                hintText: AuthConstants.passwordHintText,
+              ),
+              keyboardType: TextInputType.visiblePassword,
+              validator: FormValidator.passwordValidator,
             ),
-            keyboardType: TextInputType.visiblePassword,
-          ),
-          SpacerConstants.mediumVertical,
-          const TextField(
-            decoration: InputDecoration(
-              labelText: AuthConstants.confirmPasswordLabelText,
-              hintText: AuthConstants.confirmPasswordHintText,
+            SpacerConstants.mediumVertical,
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: AuthConstants.confirmPasswordLabelText,
+                hintText: AuthConstants.confirmPasswordHintText,
+              ),
+              keyboardType: TextInputType.visiblePassword,
+              validator: (value) {
+                // TODO: check if `value` == to password field's value
+                return null;
+              },
             ),
-            keyboardType: TextInputType.visiblePassword,
-          ),
-          SpacerConstants.mediumVertical,
-          FilledButton(
-            onPressed: _onTapRegister,
-            child: const Text(
-              AuthConstants.registerText,
+            SpacerConstants.mediumVertical,
+            FilledButton(
+              onPressed: () {
+                _onTapRegister(formKey);
+              },
+              child: const Text(
+                AuthConstants.registerText,
+              ),
             ),
-          ),
-          SpacerConstants.mediumVertical,
-          Text.rich(
-            TextSpan(
-              children: [
-                const TextSpan(
-                  text: '${AuthConstants.alreadyHaveAnAccount} ',
-                ),
-                TextSpan(
-                  text: AuthConstants.loginText,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+            SpacerConstants.mediumVertical,
+            Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(
+                    text: '${AuthConstants.alreadyHaveAnAccount} ',
                   ),
-                  recognizer: TapGestureRecognizer()..onTap = _onTapLogin,
-                ),
-              ],
+                  TextSpan(
+                    text: AuthConstants.loginText,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    recognizer: TapGestureRecognizer()..onTap = _onTapLogin,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   void _onTapLogin() {}
 
-  void _onTapRegister() {}
+  void _onTapRegister(GlobalKey<FormState> formKey) {
+    if (formKey.currentState?.validate() ?? false) {
+      // TODO: implement action when form has no errors
+      // - start registration event
+    }
+  }
 }
