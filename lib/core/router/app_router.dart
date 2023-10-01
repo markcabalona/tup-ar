@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -36,6 +37,23 @@ abstract class AppRouter {
                 child: child,
               ),
             ),
+          ),
+          ShellRoute(
+            builder: (context, state, child) => child,
+            routes: [
+              GoRoute(
+                name: AppRoutes.home.name,
+                path: AppRoutes.home.path,
+                pageBuilder: (context, state) => MaterialPage(
+                  child: Scaffold(
+                    appBar: AppBar(
+                      title: const Text('Home Screen'),
+                    ),
+                    body: const Placeholder(),
+                  ),
+                ),
+              )
+            ],
           ),
         ],
       ),

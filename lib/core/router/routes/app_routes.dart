@@ -1,5 +1,6 @@
 enum AppRoutes {
-  registration('/registration');
+  registration('/registration'),
+  home('/');
 
   final String path;
   const AppRoutes(this.path);
