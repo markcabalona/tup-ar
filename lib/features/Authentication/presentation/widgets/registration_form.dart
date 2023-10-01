@@ -105,7 +105,7 @@ class RegistrationForm extends StatelessWidget {
             SpacerConstants.mediumVertical,
             FilledButton(
               onPressed: () {
-                _onTapRegister(formKey);
+                _onTapRegister(context, formKey);
               },
               child: const Text(
                 AuthConstants.registerText,
@@ -137,10 +137,14 @@ class RegistrationForm extends StatelessWidget {
 
   void _onTapLogin() {}
 
-  void _onTapRegister(GlobalKey<FormState> formKey) {
+  void _onTapRegister(
+    BuildContext context,
+    GlobalKey<FormState> formKey,
+  ) {
     if (formKey.currentState?.validate() ?? false) {
-      // TODO: implement action when form has no errors
-      // - start registration event
+      context.read<AuthenticationBloc>().add(
+            RegisterWithEmailEvent(),
+          );
     }
   }
 

@@ -1,21 +1,44 @@
 part of 'authentication_bloc.dart';
 
+enum AuthenticationStatus {
+  unauthenticated,
+  registered,
+  loggedIn,
+}
+
 class AuthenticationState extends Equatable {
   final RegistrationFormState registrationFormState;
+  final UserData? userData;
+  final AuthenticationStatus status;
+  final String? errorMessage;
   const AuthenticationState({
     this.registrationFormState = const RegistrationFormState(),
+    this.userData,
+    this.status = AuthenticationStatus.unauthenticated,
+    this.errorMessage,
   });
 
   @override
-  List<Object?> get props => [registrationFormState];
+  List<Object?> get props => [
+        registrationFormState,
+        userData,
+        status,
+        errorMessage,
+      ];
 
   AuthenticationState copyWith({
     ValueGetter<RegistrationFormState>? registrationFormState,
+    ValueGetter<UserData?>? userData,
+    ValueGetter<AuthenticationStatus>? status,
+    ValueGetter<String?>? errorMessage,
   }) {
     return AuthenticationState(
       registrationFormState: registrationFormState != null
           ? registrationFormState()
           : this.registrationFormState,
+      userData: userData != null ? userData() : this.userData,
+      status: status != null ? status() : this.status,
+      errorMessage: errorMessage != null ? errorMessage() : this.errorMessage,
     );
   }
 }
