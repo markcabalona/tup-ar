@@ -12,13 +12,11 @@ final class UpdateRegistrationFormEvent extends AuthenticationEvent {
   final String? lastName;
   final String? email;
   final String? password;
-  final String? confirmPassword;
 
   const UpdateRegistrationFormEvent({
     this.firstName,
     this.lastName,
     this.email,
     this.password,
-    this.confirmPassword,
   });
 }
