@@ -15,31 +15,23 @@ class AuthenticationStateListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => previous.status != current.status,
-          listener: (context, state) {
-            if (state.status == AuthenticationStatus.registered) {
-              GetIt.instance<BackgroundTasksCubit>().onSuccess(
-                AuthConstants.alreadyHaveAnAccount,
-              );
-            }
-          },
-        ),
-        BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) =>
-              previous.errorMessage != current.errorMessage,
-          listener: (context, state) {
-            if (state.status == AuthenticationStatus.unauthenticated &&
-                state.errorMessage != null) {
-              GetIt.instance<BackgroundTasksCubit>().onErrorOccurred(
-                state.errorMessage,
-              );
-            }
-          },
-        ),
-      ],
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listenWhen: (previous, current) =>
+          previous.errorMessage != current.errorMessage ||
+          previous.status != current.status,
+      listener: (context, state) {
+        if (state.status == AuthenticationStatus.registered) {
+          GetIt.instance<BackgroundTasksCubit>().onSuccess(
+            AuthConstants.alreadyHaveAnAccount,
+          );
+        }
+        if (state.status == AuthenticationStatus.unauthenticated &&
+            state.errorMessage != null) {
+          GetIt.instance<BackgroundTasksCubit>().onErrorOccurred(
+            state.errorMessage,
+          );
+        }
+      },
       child: child,
     );
   }
