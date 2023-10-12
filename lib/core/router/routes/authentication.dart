@@ -5,6 +5,7 @@ import 'package:tup_ar/features/Authentication/presentation/pages/registration_p
 
 abstract class AuthenticationRoutes {
   static final routes = [
+    _login,
     _registration,
   ];
 
@@ -13,6 +14,14 @@ abstract class AuthenticationRoutes {
     path: AppRoutes.registration.path,
     pageBuilder: (context, state) => const MaterialPage(
       child: RegistrationPage(),
+    ),
+  );
+
+  static final _login = GoRoute(
+    name: AppRoutes.login.name,
+    path: AppRoutes.login.path,
+    pageBuilder: (context, state) => const MaterialPage(
+      child: Placeholder(),
     ),
   );
 }
