@@ -18,6 +18,8 @@ class AuthenticationBloc
         super(const AuthenticationState()) {
     on<UpdateRegistrationFormEvent>(_onUpdateRegistrationFormEvent);
     on<RegisterWithEmailEvent>(_onRegisterWithEmailEvent);
+    on<UpdateLoginFormEvent>(_onUpdateLoginFormEvent);
+    on<LoginWithEmailAndPasswordEvent>(_onLoginWithEmailAndPasswordEvent);
   }
 
   FutureOr<void> _onUpdateRegistrationFormEvent(
@@ -67,5 +69,19 @@ class AuthenticationBloc
         ));
       },
     );
+  }
+
+  FutureOr<void> _onUpdateLoginFormEvent(
+    UpdateLoginFormEvent event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    // TODO: Update login form implementation
+  }
+
+  FutureOr<void> _onLoginWithEmailAndPasswordEvent(
+    LoginWithEmailAndPasswordEvent event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    // TODO: Login with email and password implementation
   }
 }
