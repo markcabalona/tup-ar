@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/grid_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
+import 'package:tup_ar/core/router/app_router.dart';
+import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/utils/form_validator.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
@@ -135,7 +137,9 @@ class RegistrationForm extends StatelessWidget {
     );
   }
 
-  void _onTapLogin() {}
+  void _onTapLogin() {
+    AppRouter.go(AppRoutes.login);
+  }
 
   void _onTapRegister(
     BuildContext context,
