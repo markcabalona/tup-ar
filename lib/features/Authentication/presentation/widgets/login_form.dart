@@ -1,16 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/utils/form_validator.dart';
+import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.read<AuthenticationBloc>();
     final formKey = GlobalKey<FormState>();
     return Form(
       key: formKey,
@@ -23,7 +26,11 @@ class LoginForm extends StatelessWidget {
             ),
             keyboardType: TextInputType.emailAddress,
             validator: FormValidator.emailValidator,
-            onChanged: (value) {},
+            onChanged: (value) {
+              authBloc.add(UpdateLoginFormEvent(
+                email: value,
+              ));
+            },
           ),
           SpacerConstants.mediumVertical,
           TextFormField(
@@ -36,7 +43,11 @@ class LoginForm extends StatelessWidget {
               value,
               errorMessage: AuthConstants.passwordLoginFieldError,
             ),
-            onChanged: (value) {},
+            onChanged: (value) {
+              authBloc.add(UpdateLoginFormEvent(
+                password: value,
+              ));
+            },
           ),
           SpacerConstants.mediumVertical,
           FilledButton(

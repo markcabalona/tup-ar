@@ -75,7 +75,14 @@ class AuthenticationBloc
     UpdateLoginFormEvent event,
     Emitter<AuthenticationState> emit,
   ) {
-    // TODO: Update login form implementation
+    emit(
+      state.copyWith(
+        loginFormState: () => state.loginFormState.copyWith(
+          email: event.email,
+          password: event.password,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onLoginWithEmailAndPasswordEvent(
