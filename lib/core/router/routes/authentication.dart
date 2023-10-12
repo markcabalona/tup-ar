@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
+import 'package:tup_ar/features/Authentication/presentation/pages/login_page.dart';
 import 'package:tup_ar/features/Authentication/presentation/pages/registration_page.dart';
 
 abstract class AuthenticationRoutes {
@@ -21,7 +22,7 @@ abstract class AuthenticationRoutes {
     name: AppRoutes.login.name,
     path: AppRoutes.login.path,
     pageBuilder: (context, state) => const MaterialPage(
-      child: Placeholder(),
+      child: LoginPage(),
     ),
   );
 }
