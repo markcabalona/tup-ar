@@ -8,11 +8,13 @@ enum AuthenticationStatus {
 
 class AuthenticationState extends Equatable {
   final RegistrationFormState registrationFormState;
+  final LoginFormState loginFormState;
   final UserData? userData;
   final AuthenticationStatus status;
   final String? errorMessage;
   const AuthenticationState({
     this.registrationFormState = const RegistrationFormState(),
+    this.loginFormState = const LoginFormState(),
     this.userData,
     this.status = AuthenticationStatus.unauthenticated,
     this.errorMessage,
@@ -28,6 +30,7 @@ class AuthenticationState extends Equatable {
 
   AuthenticationState copyWith({
     ValueGetter<RegistrationFormState>? registrationFormState,
+    ValueGetter<LoginFormState>? loginFormState,
     ValueGetter<UserData?>? userData,
     ValueGetter<AuthenticationStatus>? status,
     ValueGetter<String?>? errorMessage,
@@ -36,6 +39,8 @@ class AuthenticationState extends Equatable {
       registrationFormState: registrationFormState != null
           ? registrationFormState()
           : this.registrationFormState,
+      loginFormState:
+          loginFormState != null ? loginFormState() : this.loginFormState,
       userData: userData != null ? userData() : this.userData,
       status: status != null ? status() : this.status,
       errorMessage: errorMessage != null ? errorMessage() : this.errorMessage,
@@ -74,6 +79,28 @@ class RegistrationFormState extends Equatable {
     return RegistrationFormState(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
+}
+
+class LoginFormState extends Equatable {
+  final String? email;
+  final String? password;
+  const LoginFormState({
+    this.email,
+    this.password,
+  });
+
+  @override
+  List<Object?> get props => [email, password];
+
+  LoginFormState copyWith({
+    String? email,
+    String? password,
+  }) {
+    return LoginFormState(
       email: email ?? this.email,
       password: password ?? this.password,
     );
