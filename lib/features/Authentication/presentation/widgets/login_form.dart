@@ -90,7 +90,9 @@ class LoginForm extends StatelessWidget {
     GlobalKey<FormState> formKey,
   ) {
     if (formKey.currentState?.validate() ?? false) {
-      // TODO: call login event here
+      context.read<AuthenticationBloc>().add(
+            LoginWithEmailAndPasswordEvent(),
+          );
     }
   }
 }
