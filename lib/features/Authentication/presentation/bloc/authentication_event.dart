@@ -22,3 +22,15 @@ final class UpdateRegistrationFormEvent extends AuthenticationEvent {
 }
 
 class RegisterWithEmailEvent extends AuthenticationEvent {}
+
+final class UpdateLoginFormEvent extends AuthenticationEvent {
+  final String? email;
+  final String? password;
+
+  const UpdateLoginFormEvent({
+    this.email,
+    this.password,
+  });
+}
+
+class LoginWithEmailAndPasswordEvent extends AuthenticationEvent {}

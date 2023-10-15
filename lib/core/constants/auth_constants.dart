@@ -30,5 +30,10 @@ abstract class AuthConstants {
   static const registrationSuccessMessage =
       'Registration Completed Successfully!';
 
+  static const loginSuccessMessage = 'Login successful!';
+
   static const noAccountYet = "Don't have an account yet?";
+
+  static const loginAttemptMessage = 'Logging you in...';
+  static const registrationAttemptMessage = 'Creating your account...';
 }

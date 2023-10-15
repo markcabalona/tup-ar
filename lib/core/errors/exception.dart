@@ -1,6 +1,6 @@
-class RegistrationException implements Exception {
+class AuthException implements Exception {
   final String message;
-  const RegistrationException({
+  const AuthException({
     required this.message,
   });
 }
