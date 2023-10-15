@@ -2,6 +2,7 @@ part of 'authentication_bloc.dart';
 
 enum AuthenticationStatus {
   unauthenticated,
+  authenticating,
   registered,
   loggedIn,
 }
@@ -13,6 +14,7 @@ class AuthenticationState extends Equatable {
   final AuthenticationStatus status;
   final String? errorMessage;
   final String? successMessage;
+  final String? loadingMessage;
   const AuthenticationState({
     this.registrationFormState = const RegistrationFormState(),
     this.loginFormState = const LoginFormState(),
@@ -20,6 +22,7 @@ class AuthenticationState extends Equatable {
     this.status = AuthenticationStatus.unauthenticated,
     this.errorMessage,
     this.successMessage,
+    this.loadingMessage,
   });
 
   @override
@@ -30,6 +33,7 @@ class AuthenticationState extends Equatable {
         status,
         errorMessage,
         successMessage,
+        loadingMessage,
       ];
 
   AuthenticationState copyWith({
@@ -39,6 +43,7 @@ class AuthenticationState extends Equatable {
     ValueGetter<AuthenticationStatus>? status,
     ValueGetter<String?>? errorMessage,
     ValueGetter<String?>? successMessage,
+    ValueGetter<String?>? loadingMessage,
   }) {
     return AuthenticationState(
       registrationFormState: registrationFormState != null
@@ -51,6 +56,8 @@ class AuthenticationState extends Equatable {
       errorMessage: errorMessage != null ? errorMessage() : this.errorMessage,
       successMessage:
           successMessage != null ? successMessage() : this.successMessage,
+      loadingMessage:
+          loadingMessage != null ? loadingMessage() : this.loadingMessage,
     );
   }
 }

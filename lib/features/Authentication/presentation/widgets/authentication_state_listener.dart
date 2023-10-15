@@ -21,16 +21,21 @@ class AuthenticationStateListener extends StatelessWidget {
           previous.errorMessage != current.errorMessage ||
           previous.status != current.status,
       listener: (context, state) {
+        final backgroundTaskCubit = GetIt.instance<BackgroundTasksCubit>();
         switch (state.status) {
+          case AuthenticationStatus.authenticating:
+            backgroundTaskCubit.onLoading(
+              state.loadingMessage,
+            );
           case AuthenticationStatus.registered || AuthenticationStatus.loggedIn:
             AppRouter.go(AppRoutes.home);
-            GetIt.instance<BackgroundTasksCubit>().onSuccess(
+            backgroundTaskCubit.onSuccess(
               state.successMessage,
             );
             break;
           case AuthenticationStatus.unauthenticated:
             if (state.errorMessage != null) {
-              GetIt.instance<BackgroundTasksCubit>().onErrorOccurred(
+              backgroundTaskCubit.onErrorOccurred(
                 state.errorMessage,
               );
             }

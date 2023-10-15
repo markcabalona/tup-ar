@@ -50,7 +50,8 @@ class AuthenticationBloc
     emit(state.copyWith(
       errorMessage: () => null,
       userData: () => null,
-      status: () => AuthenticationStatus.unauthenticated,
+      status: () => AuthenticationStatus.authenticating,
+      loadingMessage: () => AuthConstants.registrationAttemptMessage,
     ));
     final result = await _registrationRepository.registerWithEmail(
       email: state.registrationFormState.email!,
@@ -64,13 +65,14 @@ class AuthenticationBloc
         emit(
           state.copyWith(
             errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
           ),
         );
       },
       (userData) {
         emit(state.copyWith(
           userData: () => userData,
-          status: () => AuthenticationStatus.registered,
+          status: () => AuthenticationStatus.registered,  
           successMessage: () => AuthConstants.registrationSuccessMessage,
         ));
       },
@@ -98,7 +100,8 @@ class AuthenticationBloc
     emit(state.copyWith(
       errorMessage: () => null,
       userData: () => null,
-      status: () => AuthenticationStatus.unauthenticated,
+      status: () => AuthenticationStatus.authenticating,
+      loadingMessage: () => AuthConstants.loginAttemptMessage,
     ));
     final result = await _loginRepository.loginWithEmailAndPassword(
       email: state.loginFormState.email!,
@@ -110,6 +113,7 @@ class AuthenticationBloc
         emit(
           state.copyWith(
             errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
           ),
         );
       },
