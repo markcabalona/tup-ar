@@ -52,7 +52,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         password: password,
       );
 
-      final displayName = userCredential.user?.displayName?.split(r'\\');
+      final displayName = userCredential.user?.displayName?.split('\\');
 
       return UserDataModel(
         userId: userCredential.user!.uid,
