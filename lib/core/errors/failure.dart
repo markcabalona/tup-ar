@@ -4,3 +4,10 @@ class RegistrationFailure {
     required this.errorMessage,
   });
 }
+
+class LoginFailure {
+  final String errorMessage;
+  const LoginFailure({
+    required this.errorMessage,
+  });
+}

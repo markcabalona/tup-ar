@@ -27,7 +27,7 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
         lastName: lastName,
       );
       return Right(response);
-    } on RegistrationException catch (e) {
+    } on AuthException catch (e) {
       return Left(
         RegistrationFailure(
           errorMessage: e.message,
