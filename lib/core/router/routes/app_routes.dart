@@ -1,4 +1,5 @@
 enum AppRoutes {
+  login('/login'),
   registration('/registration'),
   home('/');
 

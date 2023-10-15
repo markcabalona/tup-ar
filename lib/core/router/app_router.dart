@@ -19,7 +19,7 @@ abstract class AppRouter {
   static final GoRouterDelegate routerDelegate = _router.routerDelegate;
 
   static final _router = GoRouter(
-    initialLocation: AppRoutes.registration.path,
+    initialLocation: AppRoutes.login.path,
     routes: [
       ShellRoute(
         builder: (context, state, child) => BlocProvider(
