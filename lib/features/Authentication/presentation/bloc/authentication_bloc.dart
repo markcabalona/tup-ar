@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/features/Authentication/domain/entities/user_data.dart';
+import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/registration_repository.dart';
 
 part 'authentication_event.dart';
@@ -12,9 +13,12 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final RegistrationRepository _registrationRepository;
+  final LoginRepository _loginRepository;
   AuthenticationBloc({
     required RegistrationRepository registrationRepository,
+    required LoginRepository loginRepository,
   })  : _registrationRepository = registrationRepository,
+        _loginRepository = loginRepository,
         super(const AuthenticationState()) {
     on<UpdateRegistrationFormEvent>(_onUpdateRegistrationFormEvent);
     on<RegisterWithEmailEvent>(_onRegisterWithEmailEvent);
