@@ -7,4 +7,9 @@ abstract interface class AuthRemoteDatasource {
     required String firstName,
     required String lastName,
   });
+
+  Future<UserDataModel> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
 }

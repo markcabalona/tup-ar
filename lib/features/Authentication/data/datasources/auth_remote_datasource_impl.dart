@@ -34,9 +34,37 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         lastName: lastName,
         email: email,
       );
-    } on FirebaseException catch (e) {
-      throw RegistrationException(
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(
         message: e.message ?? ErrorMessageConstants.serverError,
+      );
+    }
+  }
+
+  @override
+  Future<UserDataModel> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final displayName = userCredential.user?.displayName?.split(r'\\');
+
+      return UserDataModel(
+        userId: userCredential.user!.uid,
+        firstName: displayName?.firstOrNull ?? '',
+        lastName: displayName?.lastOrNull ?? '',
+        email: email,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(
+        message: ErrorMessageConstants.errorCodes[e.code] ??
+            e.message ??
+            ErrorMessageConstants.serverError,
       );
     }
   }
