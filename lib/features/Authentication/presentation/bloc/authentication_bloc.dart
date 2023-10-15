@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/features/Authentication/domain/entities/user_data.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/registration_repository.dart';
@@ -70,6 +71,7 @@ class AuthenticationBloc
         emit(state.copyWith(
           userData: () => userData,
           status: () => AuthenticationStatus.registered,
+          successMessage: () => AuthConstants.registrationSuccessMessage,
         ));
       },
     );
@@ -115,6 +117,7 @@ class AuthenticationBloc
         emit(state.copyWith(
           userData: () => userData,
           status: () => AuthenticationStatus.loggedIn,
+          successMessage: () => AuthConstants.loginSuccessMessage,
         ));
       },
     );

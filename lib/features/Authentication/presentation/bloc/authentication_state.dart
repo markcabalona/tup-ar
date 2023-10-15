@@ -12,12 +12,14 @@ class AuthenticationState extends Equatable {
   final UserData? userData;
   final AuthenticationStatus status;
   final String? errorMessage;
+  final String? successMessage;
   const AuthenticationState({
     this.registrationFormState = const RegistrationFormState(),
     this.loginFormState = const LoginFormState(),
     this.userData,
     this.status = AuthenticationStatus.unauthenticated,
     this.errorMessage,
+    this.successMessage,
   });
 
   @override
@@ -27,6 +29,7 @@ class AuthenticationState extends Equatable {
         userData,
         status,
         errorMessage,
+        successMessage,
       ];
 
   AuthenticationState copyWith({
@@ -35,6 +38,7 @@ class AuthenticationState extends Equatable {
     ValueGetter<UserData?>? userData,
     ValueGetter<AuthenticationStatus>? status,
     ValueGetter<String?>? errorMessage,
+    ValueGetter<String?>? successMessage,
   }) {
     return AuthenticationState(
       registrationFormState: registrationFormState != null
@@ -45,6 +49,8 @@ class AuthenticationState extends Equatable {
       userData: userData != null ? userData() : this.userData,
       status: status != null ? status() : this.status,
       errorMessage: errorMessage != null ? errorMessage() : this.errorMessage,
+      successMessage:
+          successMessage != null ? successMessage() : this.successMessage,
     );
   }
 }
