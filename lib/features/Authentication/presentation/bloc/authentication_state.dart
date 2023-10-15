@@ -23,6 +23,7 @@ class AuthenticationState extends Equatable {
   @override
   List<Object?> get props => [
         registrationFormState,
+        loginFormState,
         userData,
         status,
         errorMessage,

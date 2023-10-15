@@ -92,7 +92,31 @@ class AuthenticationBloc
   FutureOr<void> _onLoginWithEmailAndPasswordEvent(
     LoginWithEmailAndPasswordEvent event,
     Emitter<AuthenticationState> emit,
-  ) {
-    // TODO: Login with email and password implementation
+  ) async {
+    emit(state.copyWith(
+      errorMessage: () => null,
+      userData: () => null,
+      status: () => AuthenticationStatus.unauthenticated,
+    ));
+    final result = await _loginRepository.loginWithEmailAndPassword(
+      email: state.loginFormState.email!,
+      password: state.loginFormState.password!,
+    );
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+          ),
+        );
+      },
+      (userData) {
+        emit(state.copyWith(
+          userData: () => userData,
+          status: () => AuthenticationStatus.loggedIn,
+        ));
+      },
+    );
   }
 }
