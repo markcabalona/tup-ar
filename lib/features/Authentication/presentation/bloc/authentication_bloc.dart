@@ -47,12 +47,11 @@ class AuthenticationBloc
     RegisterWithEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(state.copyWith(
-      errorMessage: () => null,
-      userData: () => null,
-      status: () => AuthenticationStatus.authenticating,
-      loadingMessage: () => AuthConstants.registrationAttemptMessage,
-    ));
+    _emitLoading(
+      emit,
+      loadingMessage: AuthConstants.registrationAttemptMessage,
+    );
+
     final result = await _registrationRepository.registerWithEmail(
       email: state.registrationFormState.email!,
       password: state.registrationFormState.password!,
@@ -72,7 +71,7 @@ class AuthenticationBloc
       (userData) {
         emit(state.copyWith(
           userData: () => userData,
-          status: () => AuthenticationStatus.registered,  
+          status: () => AuthenticationStatus.registered,
           successMessage: () => AuthConstants.registrationSuccessMessage,
         ));
       },
@@ -97,12 +96,11 @@ class AuthenticationBloc
     LoginWithEmailAndPasswordEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(state.copyWith(
-      errorMessage: () => null,
-      userData: () => null,
-      status: () => AuthenticationStatus.authenticating,
-      loadingMessage: () => AuthConstants.loginAttemptMessage,
-    ));
+    _emitLoading(
+      emit,
+      loadingMessage: AuthConstants.loginAttemptMessage,
+    );
+
     final result = await _loginRepository.loginWithEmailAndPassword(
       email: state.loginFormState.email!,
       password: state.loginFormState.password!,
@@ -125,5 +123,18 @@ class AuthenticationBloc
         ));
       },
     );
+  }
+
+  void _emitLoading(
+    Emitter<AuthenticationState> emit, {
+    String? loadingMessage,
+  }) {
+    emit(state.copyWith(
+      errorMessage: () => null,
+      userData: () => null,
+      successMessage: () => null,
+      status: () => AuthenticationStatus.authenticating,
+      loadingMessage: () => loadingMessage,
+    ));
   }
 }
