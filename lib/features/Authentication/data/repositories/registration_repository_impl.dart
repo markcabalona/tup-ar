@@ -38,7 +38,8 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
   }
 
   @override
-  Future<Either<RegistrationFailure, UserCredentials>> registerWithGoogle() async {
+  Future<Either<RegistrationFailure, UserCredentials>>
+      registerWithGoogle() async {
     try {
       final response = await _remoteDatasource.registerWithGoogle();
       return Right(response);
