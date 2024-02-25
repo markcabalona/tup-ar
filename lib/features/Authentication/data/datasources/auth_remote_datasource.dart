@@ -1,3 +1,4 @@
+import 'package:tup_ar/features/Authentication/data/models/user_credentials_model.dart';
 import 'package:tup_ar/features/Authentication/data/models/user_data_model.dart';
 
 abstract interface class AuthRemoteDatasource {
@@ -8,8 +9,20 @@ abstract interface class AuthRemoteDatasource {
     required String lastName,
   });
 
+  Future<UserCredentialsModel> registerWithGoogle();
+
+  Future<UserDataModel> signInWithCredential({
+    required String accessToken,
+    required String firstName,
+    required String lastName,
+  });
+
   Future<UserDataModel> loginWithEmailAndPassword({
     required String email,
     required String password,
   });
+
+  Future<UserDataModel> loginWithGoogle();
+
+  Future<void> logout();
 }

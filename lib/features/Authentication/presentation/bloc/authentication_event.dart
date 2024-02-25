@@ -34,3 +34,11 @@ final class UpdateLoginFormEvent extends AuthenticationEvent {
 }
 
 class LoginWithEmailAndPasswordEvent extends AuthenticationEvent {}
+
+class LoginWithGoogleEvent extends AuthenticationEvent {}
+
+class RegisterWithGoogleEvent extends AuthenticationEvent {}
+
+class SignInWithCredentialsEvent extends AuthenticationEvent {}
+
+class LogoutEvent extends AuthenticationEvent {}

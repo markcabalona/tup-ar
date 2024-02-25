@@ -7,4 +7,8 @@ abstract interface class LoginRepository {
     required String email,
     required String password,
   });
+
+  Future<Either<LoginFailure, UserData>> loginWithGoogle();
+
+  Future<Either<LoginFailure, void>> logout();
 }

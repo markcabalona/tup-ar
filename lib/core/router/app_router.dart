@@ -6,8 +6,10 @@ import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/router/routes/authentication.dart';
 import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
+import 'package:tup_ar/features/AugmentedReality/presentation/pages/hello_world.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authentication_state_listener.dart';
+import 'package:tup_ar/features/Home/presentation/pages/home_page.dart';
 
 abstract class AppRouter {
   static final GoRouteInformationParser routeInformationParser =
@@ -22,21 +24,25 @@ abstract class AppRouter {
     initialLocation: AppRoutes.login.path,
     routes: [
       ShellRoute(
-        builder: (context, state, child) => BlocProvider(
-          create: (context) => GetIt.instance<BackgroundTasksCubit>(),
-          child: BackgroundTasksListener(
-            child: child,
+        builder: (context, state, child) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => GetIt.instance<BackgroundTasksCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => GetIt.instance<AuthenticationBloc>(),
+            ),
+          ],
+          child: AuthenticationStateListener(
+            child: BackgroundTasksListener(
+              child: child,
+            ),
           ),
         ),
         routes: [
           ShellRoute(
             routes: AuthenticationRoutes.routes,
-            builder: (context, state, child) => BlocProvider(
-              create: (context) => GetIt.instance<AuthenticationBloc>(),
-              child: AuthenticationStateListener(
-                child: child,
-              ),
-            ),
+            builder: (context, state, child) => child,
           ),
           ShellRoute(
             builder: (context, state, child) => child,
@@ -45,14 +51,34 @@ abstract class AppRouter {
                 name: AppRoutes.home.name,
                 path: AppRoutes.home.path,
                 pageBuilder: (context, state) => MaterialPage(
+                  // child: HelloWorld()
                   child: Scaffold(
                     appBar: AppBar(
-                      title: const Text('Home Screen'),
+                      title: const Text('TUP AR'),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            GetIt.instance<AuthenticationBloc>().add(
+                              LogoutEvent(),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.logout,
+                          ),
+                        ),
+                      ],
                     ),
-                    body: const Placeholder(),
+                    body: const HomePage(),
                   ),
                 ),
-              )
+              ),
+              GoRoute(
+                name: AppRoutes.ar.name,
+                path: AppRoutes.ar.path,
+                pageBuilder: (context, state) => const MaterialPage(
+                  child: HelloWorld(),
+                ),
+              ),
             ],
           ),
         ],

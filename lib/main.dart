@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         inputDecorationTheme: AppTheme.inputDecorationTheme,
         filledButtonTheme: AppTheme.filledButtonTheme,
+        outlinedButtonTheme: AppTheme.outlinedButtonTheme,
       ),
       routeInformationParser: AppRouter.routeInformationParser,
       routeInformationProvider: AppRouter.routeInformationProvider,

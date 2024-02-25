@@ -12,7 +12,12 @@
           "package_name": "com.markcabalona.tup_ar"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1070591445927-p2e3l23rv2m5q0332dqbh49d417ssoqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQIXfV7By-IiRDPrJnLf4ABvEpUN1xK7o"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070591445927-p2e3l23rv2m5q0332dqbh49d417ssoqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

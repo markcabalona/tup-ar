@@ -11,6 +11,10 @@ import 'package:tup_ar/core/constants/grid_constants.dart';
 /// SpacerConstants.verticalLarge = 24.0
 /// ```
 abstract class SpacerConstants {
+  static const horizontalSmall = SizedBox(
+    width: GridConstants.small,
+  );
+
   static const horizontal = SizedBox(
     width: GridConstants.medium,
   );

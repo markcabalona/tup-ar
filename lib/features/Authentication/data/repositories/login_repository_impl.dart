@@ -31,4 +31,32 @@ class LoginRepositoryImpl implements LoginRepository {
       );
     }
   }
+
+  @override
+  Future<Either<LoginFailure, UserData>> loginWithGoogle() async {
+    try {
+      final response = await _remoteDatasource.loginWithGoogle();
+      return Right(response);
+    } on AuthException catch (e) {
+      return Left(
+        LoginFailure(
+          errorMessage: e.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<LoginFailure, void>> logout() async {
+    try {
+      final response = await _remoteDatasource.logout();
+      return Right(response);
+    } on AuthException catch (e) {
+      return Left(
+        LoginFailure(
+          errorMessage: e.message,
+        ),
+      );
+    }
+  }
 }

@@ -36,4 +36,12 @@ abstract class AuthConstants {
 
   static const loginAttemptMessage = 'Logging you in...';
   static const registrationAttemptMessage = 'Creating your account...';
+
+  static const logoutAttemptMessage = 'Logging you out...';
+
+  static const logoutSuccessMessage = 'Logout successful';
+
+  static const continueWithGoogle = 'Continue with Google';
+
+  static const registerWithGoogle = 'Register with Google';
 }

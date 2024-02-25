@@ -20,4 +20,16 @@ abstract class AppTheme {
       ),
     ),
   );
+  static final outlinedButtonTheme = OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
+      minimumSize: const Size.fromHeight(
+        kTextTabBarHeight,
+      ),
+    ),
+  );
 }

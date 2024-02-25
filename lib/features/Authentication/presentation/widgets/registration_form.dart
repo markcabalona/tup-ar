@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
 import 'package:tup_ar/core/constants/grid_constants.dart';
+import 'package:tup_ar/core/constants/padding_constants.dart';
 import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/utils/form_validator.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tup_ar/features/Authentication/presentation/widgets/google_sign_in_button.dart';
 
 class RegistrationForm extends StatelessWidget {
   const RegistrationForm({super.key});
@@ -131,6 +133,15 @@ class RegistrationForm extends StatelessWidget {
                 ],
               ),
             ),
+            SpacerConstants.mediumVertical,
+            const Padding(
+              padding: PaddingConstants.largeHorizontal,
+              child: Divider(),
+            ),
+            SpacerConstants.mediumVertical,
+            GoogleSignInButton(
+              onPressed: () => _onTapLoginWithGoogle(context),
+            ),
           ],
         ),
       ),
@@ -157,5 +168,11 @@ class RegistrationForm extends StatelessWidget {
       return AuthConstants.confirmPasswordFieldError;
     }
     return null;
+  }
+
+  _onTapLoginWithGoogle(BuildContext context) {
+    context.read<AuthenticationBloc>().add(
+          RegisterWithGoogleEvent(),
+        );
   }
 }

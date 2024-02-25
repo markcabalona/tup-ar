@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
+import 'package:tup_ar/features/Authentication/domain/entities/user_credentials.dart';
 import 'package:tup_ar/features/Authentication/domain/entities/user_data.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/registration_repository.dart';
@@ -25,6 +26,10 @@ class AuthenticationBloc
     on<RegisterWithEmailEvent>(_onRegisterWithEmailEvent);
     on<UpdateLoginFormEvent>(_onUpdateLoginFormEvent);
     on<LoginWithEmailAndPasswordEvent>(_onLoginWithEmailAndPasswordEvent);
+    on<LoginWithGoogleEvent>(_onLoginWithGoogleEvent);
+    on<RegisterWithGoogleEvent>(_onRegisterWithGoogleEvent);
+    on<SignInWithCredentialsEvent>(_onSignInWithCredentialsEvent);
+    on<LogoutEvent>(_onLogoutEvent);
   }
 
   FutureOr<void> _onUpdateRegistrationFormEvent(
@@ -120,6 +125,126 @@ class AuthenticationBloc
           userData: () => userData,
           status: () => AuthenticationStatus.loggedIn,
           successMessage: () => AuthConstants.loginSuccessMessage,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onLoginWithGoogleEvent(
+    LoginWithGoogleEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    _emitLoading(
+      emit,
+      loadingMessage: AuthConstants.loginAttemptMessage,
+    );
+    final result = await _loginRepository.loginWithGoogle();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
+          ),
+        );
+      },
+      (userData) {
+        emit(state.copyWith(
+          userData: () => userData,
+          status: () => AuthenticationStatus.loggedIn,
+          successMessage: () => AuthConstants.loginSuccessMessage,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onRegisterWithGoogleEvent(
+    RegisterWithGoogleEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    _emitLoading(
+      emit,
+    );
+    final result = await _registrationRepository.registerWithGoogle();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
+          ),
+        );
+      },
+      (userCredentials) {
+        emit(state.copyWith(
+          userCredentials: () => userCredentials,
+          status: () => AuthenticationStatus.onGoogleRegistrationProcess,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onSignInWithCredentialsEvent(
+    SignInWithCredentialsEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    _emitLoading(
+      emit,
+      loadingMessage: AuthConstants.registrationAttemptMessage,
+    );
+
+    final result = await _registrationRepository.signInWithCredentials(
+      accessToken: state.userCredentials!.accessToken,
+      firstName: state.registrationFormState.firstName!,
+      lastName: state.registrationFormState.lastName!,
+    );
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
+          ),
+        );
+      },
+      (userData) {
+        emit(state.copyWith(
+          userData: () => userData,
+          status: () => AuthenticationStatus.registered,
+          successMessage: () => AuthConstants.registrationSuccessMessage,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onLogoutEvent(
+    LogoutEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    _emitLoading(
+      emit,
+      loadingMessage: AuthConstants.logoutAttemptMessage,
+    );
+
+    final result = await _loginRepository.logout();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            errorMessage: () => failure.errorMessage,
+            status: () => AuthenticationStatus.unauthenticated,
+          ),
+        );
+      },
+      (userData) {
+        emit(state.copyWith(
+          userData: () => null,
+          status: () => AuthenticationStatus.unauthenticated,
+          successMessage: () => AuthConstants.logoutSuccessMessage,
         ));
       },
     );

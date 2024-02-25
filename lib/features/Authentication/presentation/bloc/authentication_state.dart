@@ -4,6 +4,7 @@ enum AuthenticationStatus {
   unauthenticated,
   authenticating,
   registered,
+  onGoogleRegistrationProcess,
   loggedIn,
 }
 
@@ -11,6 +12,7 @@ class AuthenticationState extends Equatable {
   final RegistrationFormState registrationFormState;
   final LoginFormState loginFormState;
   final UserData? userData;
+  final UserCredentials? userCredentials;
   final AuthenticationStatus status;
   final String? errorMessage;
   final String? successMessage;
@@ -19,6 +21,7 @@ class AuthenticationState extends Equatable {
     this.registrationFormState = const RegistrationFormState(),
     this.loginFormState = const LoginFormState(),
     this.userData,
+    this.userCredentials,
     this.status = AuthenticationStatus.unauthenticated,
     this.errorMessage,
     this.successMessage,
@@ -30,6 +33,7 @@ class AuthenticationState extends Equatable {
         registrationFormState,
         loginFormState,
         userData,
+        userCredentials,
         status,
         errorMessage,
         successMessage,
@@ -40,6 +44,7 @@ class AuthenticationState extends Equatable {
     ValueGetter<RegistrationFormState>? registrationFormState,
     ValueGetter<LoginFormState>? loginFormState,
     ValueGetter<UserData?>? userData,
+    ValueGetter<UserCredentials?>? userCredentials,
     ValueGetter<AuthenticationStatus>? status,
     ValueGetter<String?>? errorMessage,
     ValueGetter<String?>? successMessage,
@@ -52,6 +57,8 @@ class AuthenticationState extends Equatable {
       loginFormState:
           loginFormState != null ? loginFormState() : this.loginFormState,
       userData: userData != null ? userData() : this.userData,
+      userCredentials:
+          userCredentials != null ? userCredentials() : this.userCredentials,
       status: status != null ? status() : this.status,
       errorMessage: errorMessage != null ? errorMessage() : this.errorMessage,
       successMessage:

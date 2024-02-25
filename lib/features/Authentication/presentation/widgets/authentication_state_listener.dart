@@ -34,10 +34,20 @@ class AuthenticationStateListener extends StatelessWidget {
               state.successMessage,
             );
             break;
+          case AuthenticationStatus.onGoogleRegistrationProcess:
+            backgroundTaskCubit.onIdle();
+            AppRouter.go(AppRoutes.registration);
+            break;
+
           case AuthenticationStatus.unauthenticated:
             if (state.errorMessage != null) {
               backgroundTaskCubit.onErrorOccurred(
                 state.errorMessage,
+              );
+            } else {
+              AppRouter.go(AppRoutes.login);
+              backgroundTaskCubit.onSuccess(
+                state.successMessage,
               );
             }
             break;
