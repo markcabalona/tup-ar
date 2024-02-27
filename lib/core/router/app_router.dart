@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/router/routes/authentication.dart';
+import 'package:tup_ar/core/router/routes/faqs_routes.dart';
 import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
 import 'package:tup_ar/features/AugmentedReality/presentation/pages/hello_world.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
@@ -71,6 +72,10 @@ abstract class AppRouter {
                 ),
               ),
             ],
+          ),
+          ShellRoute(
+            routes: FaqsRoutes.routes,
+            builder: (context, state, child) => child,
           ),
         ],
       ),
