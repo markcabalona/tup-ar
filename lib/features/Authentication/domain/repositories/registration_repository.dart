@@ -17,5 +17,6 @@ abstract interface class RegistrationRepository {
     required String accessToken,
     required String firstName,
     required String lastName,
+    String? profileImage,
   });
 }

@@ -57,12 +57,14 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
     required String accessToken,
     required String firstName,
     required String lastName,
+    String? profileImage,
   }) async {
     try {
       final response = await _remoteDatasource.signInWithCredential(
         accessToken: accessToken,
         firstName: firstName,
         lastName: lastName,
+        profileImage: profileImage,
       );
       return Right(response);
     } on AuthException catch (e) {

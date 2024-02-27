@@ -217,6 +217,7 @@ class AuthenticationBloc
       accessToken: state.userCredentials!.accessToken,
       firstName: state.registrationFormState.firstName!,
       lastName: state.registrationFormState.lastName!,
+      profileImage: state.userCredentials!.profileImage,
     );
 
     result.fold(

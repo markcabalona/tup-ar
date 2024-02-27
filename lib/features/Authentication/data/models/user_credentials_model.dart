@@ -4,12 +4,14 @@ class UserCredentialsModel extends UserCredentials {
   const UserCredentialsModel({
     required super.accessToken,
     required super.email,
+    super.profileImage,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'accessToken': accessToken,
       'email': email,
+      'profile_image': profileImage,
     };
   }
 
@@ -17,6 +19,7 @@ class UserCredentialsModel extends UserCredentials {
     return UserCredentialsModel(
       accessToken: map['accessToken'] ?? '',
       email: map['email'] ?? '',
+      profileImage: map['profile_image'],
     );
   }
 }

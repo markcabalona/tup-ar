@@ -117,6 +117,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         firstName: fullName?.firstName ?? '',
         lastName: fullName?.lastName ?? '',
         email: userCredential.user!.email!,
+        profileImage: userCredential.user!.photoURL,
       );
     } on FirebaseAuthException catch (e) {
       throw AuthException(
@@ -153,6 +154,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return UserCredentialsModel(
         accessToken: googleAuth!.accessToken!,
         email: googleSignInAccount.email,
+        profileImage: googleSignInAccount.photoUrl,
       );
     } catch (exception) {
       if (exception is AuthException) rethrow;
@@ -165,6 +167,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
     required String accessToken,
     required String firstName,
     required String lastName,
+    String? profileImage,
   }) async {
     try {
       final userCredential = await _firebaseAuth.signInWithCredential(
@@ -181,12 +184,16 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
           lastName: lastName,
         ),
       );
+      userCredential.user?.updatePhotoURL(
+        profileImage,
+      );
 
       return UserDataModel(
         userId: userCredential.user!.uid,
         firstName: firstName,
         lastName: lastName,
         email: userCredential.user!.email!,
+        profileImage: profileImage,
       );
     } catch (_) {
       throw const AuthException(message: ErrorMessageConstants.serverError);

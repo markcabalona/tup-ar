@@ -3,9 +3,11 @@ import 'package:equatable/equatable.dart';
 class UserCredentials extends Equatable {
   final String accessToken;
   final String email;
+  final String? profileImage;
   const UserCredentials({
     required this.accessToken,
     required this.email,
+    required this.profileImage,
   });
 
   @override
@@ -13,6 +15,7 @@ class UserCredentials extends Equatable {
     return [
       accessToken,
       email,
+      profileImage,
     ];
   }
 }
