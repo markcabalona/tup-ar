@@ -6,6 +6,9 @@ import 'package:tup_ar/features/Authentication/data/datasources/auth_remote_data
 import 'package:tup_ar/features/Authentication/data/models/user_credentials_model.dart';
 import 'package:tup_ar/features/Authentication/data/models/user_data_model.dart';
 
+part 'utils/_user_extension.dart';
+part 'utils/_utils.dart';
+
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
@@ -29,7 +32,10 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
 
       userCredential.user?.updateDisplayName(
-        '$firstName\\$lastName',
+        toFullName(
+          firstName: firstName,
+          lastName: lastName,
+        ),
       );
 
       return UserDataModel(
@@ -56,12 +62,12 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         password: password,
       );
 
-      final displayName = userCredential.user?.displayName?.split('\\');
+      final fullName = userCredential.user?.displayName?.toFirstAndLastName();
 
       return UserDataModel(
         userId: userCredential.user!.uid,
-        firstName: displayName?.firstOrNull ?? '',
-        lastName: displayName?.lastOrNull ?? '',
+        firstName: fullName?.firstName ?? '',
+        lastName: fullName?.lastName ?? '',
         email: email,
       );
     } on FirebaseAuthException catch (e) {
@@ -104,12 +110,12 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         ),
       );
 
-      final displayName = userCredential.user?.displayName?.split('\\');
+      final fullName = userCredential.user?.displayName?.toFirstAndLastName();
 
       return UserDataModel(
         userId: userCredential.user!.uid,
-        firstName: displayName?.firstOrNull ?? '',
-        lastName: displayName?.lastOrNull ?? '',
+        firstName: fullName?.firstName ?? '',
+        lastName: fullName?.lastName ?? '',
         email: userCredential.user!.email!,
       );
     } on FirebaseAuthException catch (e) {
@@ -170,7 +176,10 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
 
       userCredential.user?.updateDisplayName(
-        '$firstName\\$lastName',
+        toFullName(
+          firstName: firstName,
+          lastName: lastName,
+        ),
       );
 
       return UserDataModel(
@@ -212,13 +221,13 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<UserDataModel?> getCurrentUser() async {
     try {
       final user = _firebaseAuth.currentUser;
-      
-      final displayName = user?.displayName?.split('\\');
+
+      final fullName = user?.displayName?.toFirstAndLastName();
 
       return UserDataModel(
         userId: user!.uid,
-        firstName: displayName?.firstOrNull ?? '',
-        lastName: displayName?.lastOrNull ?? '',
+        firstName: fullName?.firstName ?? '',
+        lastName: fullName?.lastName ?? '',
         email: user.email ?? '',
       );
     } on FirebaseException catch (e) {
