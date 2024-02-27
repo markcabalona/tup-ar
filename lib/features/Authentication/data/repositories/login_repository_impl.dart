@@ -13,6 +13,20 @@ class LoginRepositoryImpl implements LoginRepository {
   }) : _remoteDatasource = remoteDatasource;
 
   @override
+  Future<Either<LoginFailure, UserData?>> checkUserLogin() async {
+    try {
+      final response = await _remoteDatasource.getCurrentUser();
+      return Right(response);
+    } on AuthException catch (e) {
+      return Left(
+        LoginFailure(
+          errorMessage: e.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<LoginFailure, UserData>> loginWithEmailAndPassword({
     required String email,
     required String password,
