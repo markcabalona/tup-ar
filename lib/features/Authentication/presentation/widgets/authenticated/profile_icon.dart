@@ -11,18 +11,21 @@ class ProfileIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       maxRadius: 32,
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          final imageUrl = state.userData?.profileImage;
+      child: ClipOval(
+        clipBehavior: Clip.hardEdge,
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            final imageUrl = state.userData?.profileImage;
 
-          if (imageUrl != null) {
-            return Image.network(imageUrl);
-          }
-          return const Icon(
-            Icons.person,
-            size: 40,
-          );
-        },
+            if (imageUrl != null) {
+              return Image.network(imageUrl);
+            }
+            return const Icon(
+              Icons.person,
+              size: 40,
+            );
+          },
+        ),
       ),
     );
   }
