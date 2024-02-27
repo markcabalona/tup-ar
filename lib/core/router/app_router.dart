@@ -8,6 +8,7 @@ import 'package:tup_ar/core/router/routes/authentication.dart';
 import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
 import 'package:tup_ar/features/AugmentedReality/presentation/pages/hello_world.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tup_ar/features/Authentication/presentation/widgets/authenticated/dashboard_drawer.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authentication_state_listener.dart';
 import 'package:tup_ar/features/Home/presentation/pages/home_page.dart';
 
@@ -54,20 +55,9 @@ abstract class AppRouter {
                 pageBuilder: (context, state) => MaterialPage(
                   // child: HelloWorld()
                   child: Scaffold(
+                    drawer: const DashboardDrawer(),
                     appBar: AppBar(
-                      title: const Text('TUP AR'),
-                      actions: [
-                        IconButton(
-                          onPressed: () {
-                            GetIt.instance<AuthenticationBloc>().add(
-                              LogoutEvent(),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.logout,
-                          ),
-                        ),
-                      ],
+                      title: const Text('vAR'),
                     ),
                     body: const HomePage(),
                   ),
