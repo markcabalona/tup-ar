@@ -30,7 +30,8 @@ abstract class AppRouter {
               create: (context) => GetIt.instance<BackgroundTasksCubit>(),
             ),
             BlocProvider(
-              create: (context) => GetIt.instance<AuthenticationBloc>(),
+              create: (context) => GetIt.instance<AuthenticationBloc>()
+                ..add(CheckUserLoginEvent()),
             ),
           ],
           child: AuthenticationStateListener(
