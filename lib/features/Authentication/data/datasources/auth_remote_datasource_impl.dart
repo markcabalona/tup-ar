@@ -207,4 +207,28 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       _googleSignIn.disconnect();
     }
   }
+
+  @override
+  Future<UserDataModel?> getCurrentUser() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      
+      final displayName = user?.displayName?.split('\\');
+
+      return UserDataModel(
+        userId: user!.uid,
+        firstName: displayName?.firstOrNull ?? '',
+        lastName: displayName?.lastOrNull ?? '',
+        email: user.email ?? '',
+      );
+    } on FirebaseException catch (e) {
+      throw AuthException(
+        message: e.message ?? ErrorMessageConstants.serverError,
+      );
+    } catch (e) {
+      throw const AuthException(
+        message: 'Something went wrong. Please try again later.',
+      );
+    }
+  }
 }
