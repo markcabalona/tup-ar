@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tup_ar/core/constants/padding_constants.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 class ProfileIcon extends StatelessWidget {
@@ -18,15 +19,25 @@ class ProfileIcon extends StatelessWidget {
             final imageUrl = state.userData?.profileImage;
 
             if (imageUrl != null) {
-              return Image.network(imageUrl);
+              return Image.network(
+                imageUrl,
+                errorBuilder: (context, error, stackTrace) => _defaultIcon,
+              );
             }
-            return const Icon(
-              Icons.person,
-              size: 40,
-            );
+            return _defaultIcon;
           },
         ),
       ),
     );
   }
+
+  Widget get _defaultIcon => Padding(
+        padding: PaddingConstants.all,
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Icon(
+            Icons.person,
+            size: constraints.maxHeight,
+          );
+        }),
+      );
 }
