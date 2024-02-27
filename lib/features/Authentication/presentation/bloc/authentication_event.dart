@@ -7,6 +7,8 @@ sealed class AuthenticationEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class CheckUserLoginEvent extends AuthenticationEvent {}
+
 final class UpdateRegistrationFormEvent extends AuthenticationEvent {
   final String? firstName;
   final String? lastName;

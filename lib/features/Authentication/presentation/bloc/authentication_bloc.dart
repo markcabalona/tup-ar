@@ -22,6 +22,7 @@ class AuthenticationBloc
   })  : _registrationRepository = registrationRepository,
         _loginRepository = loginRepository,
         super(const AuthenticationState()) {
+    on<CheckUserLoginEvent>(_onCheckUserLogin);
     on<UpdateRegistrationFormEvent>(_onUpdateRegistrationFormEvent);
     on<RegisterWithEmailEvent>(_onRegisterWithEmailEvent);
     on<UpdateLoginFormEvent>(_onUpdateLoginFormEvent);
@@ -30,6 +31,23 @@ class AuthenticationBloc
     on<RegisterWithGoogleEvent>(_onRegisterWithGoogleEvent);
     on<SignInWithCredentialsEvent>(_onSignInWithCredentialsEvent);
     on<LogoutEvent>(_onLogoutEvent);
+  }
+
+  Future<void> _onCheckUserLogin(
+    CheckUserLoginEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final result = await _loginRepository.checkUserLogin();
+
+    result.fold(
+      (_) => null,
+      (user) {
+        emit(state.copyWith(
+          status: () => AuthenticationStatus.loggedIn,
+          userData: () => user,
+        ));
+      },
+    );
   }
 
   FutureOr<void> _onUpdateRegistrationFormEvent(
