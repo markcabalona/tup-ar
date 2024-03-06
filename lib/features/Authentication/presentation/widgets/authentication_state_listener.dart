@@ -29,7 +29,7 @@ class AuthenticationStateListener extends StatelessWidget {
             );
             break;
           case AuthenticationStatus.registered || AuthenticationStatus.loggedIn:
-            AppRouter.go(AppRoutes.home);
+            AppRouter.go(AppRoutes.eventsPlaces);
             backgroundTaskCubit.onSuccess(
               state.successMessage,
             );

@@ -1,18 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/core/router/routes/authentication.dart';
+import 'package:tup_ar/core/router/routes/events_places.dart';
 import 'package:tup_ar/core/router/routes/faqs_routes.dart';
 import 'package:tup_ar/core/widgets/background_tasks_listener.dart';
-import 'package:tup_ar/features/AugmentedReality/presentation/pages/hello_world.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:tup_ar/features/Authentication/presentation/widgets/authenticated/dashboard_drawer.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authentication_state_listener.dart';
 import 'package:tup_ar/features/Faqs/presentation/cubit/faqs_cubit.dart';
-import 'package:tup_ar/features/Home/presentation/pages/home_page.dart';
 
 abstract class AppRouter {
   static final GoRouteInformationParser routeInformationParser =
@@ -53,29 +50,7 @@ abstract class AppRouter {
           ),
           ShellRoute(
             builder: (context, state, child) => child,
-            routes: [
-              GoRoute(
-                name: AppRoutes.home.name,
-                path: AppRoutes.home.path,
-                pageBuilder: (context, state) => MaterialPage(
-                  // child: HelloWorld()
-                  child: Scaffold(
-                    drawer: const DashboardDrawer(),
-                    appBar: AppBar(
-                      title: const Text('vAR'),
-                    ),
-                    body: const HomePage(),
-                  ),
-                ),
-              ),
-              GoRoute(
-                name: AppRoutes.ar.name,
-                path: AppRoutes.ar.path,
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: HelloWorld(),
-                ),
-              ),
-            ],
+            routes: EventsPlacesRoutes.routes,
           ),
           ShellRoute(
             routes: FaqsRoutes.routes,
