@@ -2,10 +2,12 @@ import 'package:equatable/equatable.dart';
 
 class Faq extends Equatable {
   final String id;
+  final DateTime createdAt;
   final String question;
   final String answer;
   const Faq({
     required this.id,
+    required this.createdAt,
     required this.question,
     required this.answer,
   });
@@ -13,6 +15,7 @@ class Faq extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        createdAt,
         question,
         answer,
       ];

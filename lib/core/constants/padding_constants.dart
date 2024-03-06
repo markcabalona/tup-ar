@@ -15,6 +15,10 @@ import 'package:tup_ar/core/constants/grid_constants.dart';
 /// PaddingConstants.allLarge = 24.0
 /// ```
 abstract class PaddingConstants {
+  static const smallHorizontal = EdgeInsets.symmetric(
+    horizontal: GridConstants.small,
+  );
+
   static const horizontal = EdgeInsets.symmetric(
     horizontal: GridConstants.medium,
   );

@@ -4,3 +4,10 @@ class AuthException implements Exception {
     required this.message,
   });
 }
+
+class FaqsException implements Exception {
+  final String message;
+  const FaqsException({
+    required this.message,
+  });
+}

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tup_ar/core/dependencies/dependencies.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/theme/app_theme.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: AppTheme.inputDecorationTheme,
         filledButtonTheme: AppTheme.filledButtonTheme,
         outlinedButtonTheme: AppTheme.outlinedButtonTheme,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       routeInformationParser: AppRouter.routeInformationParser,
       routeInformationProvider: AppRouter.routeInformationProvider,

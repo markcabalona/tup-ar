@@ -11,6 +11,7 @@ import 'package:tup_ar/features/AugmentedReality/presentation/pages/hello_world.
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authenticated/dashboard_drawer.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authentication_state_listener.dart';
+import 'package:tup_ar/features/Faqs/presentation/cubit/faqs_cubit.dart';
 import 'package:tup_ar/features/Home/presentation/pages/home_page.dart';
 
 abstract class AppRouter {
@@ -34,6 +35,9 @@ abstract class AppRouter {
             BlocProvider(
               create: (context) => GetIt.instance<AuthenticationBloc>()
                 ..add(CheckUserLoginEvent()),
+            ),
+            BlocProvider(
+              create: (context) => GetIt.instance<FaqsCubit>(),
             ),
           ],
           child: AuthenticationStateListener(

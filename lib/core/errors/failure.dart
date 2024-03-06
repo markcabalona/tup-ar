@@ -11,3 +11,10 @@ class LoginFailure {
     required this.errorMessage,
   });
 }
+
+class FaqsFailure {
+  final String errorMessage;
+  const FaqsFailure({
+    required this.errorMessage,
+  });
+}
