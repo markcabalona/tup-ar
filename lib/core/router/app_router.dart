@@ -116,4 +116,8 @@ abstract class AppRouter {
       queryParameters: queryParameters,
     );
   }
+
+  static void pop<T extends Object?>([T? result]) {
+    _router.pop(result);
+  }
 }
