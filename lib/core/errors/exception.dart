@@ -11,3 +11,10 @@ class FaqsException implements Exception {
     required this.message,
   });
 }
+
+class ThemeRatingsException implements Exception {
+  final String message;
+  const ThemeRatingsException({
+    required this.message,
+  });
+}
