@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
-import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
 import 'package:tup_ar/features/ThemeRating/domain/entities/theme_rating.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/comments/theme_rating_comment_list.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/ratings/theme_ratings_widget.dart';
-
-typedef _ThemeRatings = ({EventPlace? eventPlace, List<ThemeRating> ratings});
 
 class ThemeRatingPage extends StatelessWidget {
   const ThemeRatingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ThemeRatingBloc, ThemeRatingState, _ThemeRatings>(
-      selector: _selector,
+    return BlocBuilder<ThemeRatingBloc, ThemeRatingState>(
+      buildWhen: _buildWhen,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -24,53 +21,58 @@ class ThemeRatingPage extends StatelessWidget {
               state.eventPlace?.name ?? '',
             ),
             actions: [
-              IconButton(
-                onPressed: () {
-                  // TODO: navigate to add-rating page
-                },
-                icon: const Icon(Icons.add),
-              ),
+              if (state.eventPlace != null)
+                IconButton(
+                  onPressed: () {
+                    // TODO: navigate to add-rating page
+                  },
+                  icon: const Icon(Icons.add),
+                ),
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const ThemeRatingsWidget(),
-                ThemeRatingCommentList(
-                  ratings: state.ratings
-                      .where(
-                        (element) => element.comment?.isNotEmpty == true,
-                      )
-                      .toList(),
-                ),
-              ],
-            ),
-          ),
+          body: _buildPageBody(state),
         );
       },
     );
   }
 
-  _ThemeRatings _selector(ThemeRatingState state) {
+  bool _buildWhen(previous, current) {
     final backgroundTaskCubit = GetIt.instance<BackgroundTasksCubit>();
-    if (state is ThemeRatingsLoaded) {
+    if (current is ThemeRatingsLoaded) {
       backgroundTaskCubit.onIdle();
-      final ratings = state.themeRatings
-        ..sort(
-          (a, b) {
-            return b.createdAt.difference(a.createdAt).inMilliseconds;
-          },
-        );
-      return (eventPlace: state.eventPlace, ratings: ratings);
     }
-    if (state is ThemeRatingsError) {
+    if (current is ThemeRatingsError) {
       backgroundTaskCubit.onErrorOccurred(
-        state.message,
+        current.message,
       );
-    } else if (state is ThemeRatingInitial) {
+    } else if (current is ThemeRatingInitial) {
       backgroundTaskCubit.onLoading('Fetching theme ratings...');
     }
+    return current is ThemeRatingsLoaded || current is ThemeRatingsError;
+  }
 
-    return (eventPlace: state.eventPlace, ratings: []);
+  Widget _buildPageBody(ThemeRatingState state) {
+    final List<ThemeRating> ratings;
+    if (state is! ThemeRatingsLoaded) {
+      ratings = [];
+    } else {
+      ratings = state.themeRatings;
+    }
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ThemeRatingsWidget(
+            ratings: ratings,
+          ),
+          ThemeRatingCommentList(
+            ratings: ratings
+                .where(
+                  (element) => element.comment?.isNotEmpty == true,
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
   }
 }

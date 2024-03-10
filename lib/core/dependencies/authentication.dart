@@ -4,6 +4,7 @@ import 'package:tup_ar/features/Authentication/data/datasources/auth_remote_data
 import 'package:tup_ar/features/Authentication/data/datasources/auth_remote_datasource_impl.dart';
 import 'package:tup_ar/features/Authentication/data/repositories/login_repository_impl.dart';
 import 'package:tup_ar/features/Authentication/data/repositories/registration_repository_impl.dart';
+import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 void initialzieAuthDependencies() {
@@ -13,15 +14,16 @@ void initialzieAuthDependencies() {
       firebaseAuth: FirebaseAuth.instance,
     ),
   );
+  serviceLocator.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(
+        remoteDatasource: serviceLocator(),
+      ),);
 
   serviceLocator.registerLazySingleton<AuthenticationBloc>(
     () => AuthenticationBloc(
       registrationRepository: RegistrationRepositoryImpl(
         remoteDatasource: serviceLocator(),
       ),
-      loginRepository: LoginRepositoryImpl(
-        remoteDatasource: serviceLocator(),
-      ),
+      loginRepository: serviceLocator(),
     ),
   );
 }

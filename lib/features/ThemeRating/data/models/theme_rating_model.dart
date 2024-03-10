@@ -13,9 +13,11 @@ class ThemeRatingModel extends ThemeRating {
     super.comment,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({
+    String? id,
+  }) {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'rating': rating,
       'eventPlaceId': eventPlaceId,
       'userId': userId,

@@ -236,6 +236,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         firstName: fullName?.firstName ?? '',
         lastName: fullName?.lastName ?? '',
         email: user.email ?? '',
+        profileImage: user.photoURL,
       );
     } on FirebaseException catch (e) {
       throw AuthException(

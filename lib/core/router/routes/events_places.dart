@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
+import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_place_view.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_places_page.dart';
@@ -52,6 +53,7 @@ abstract class EventsPlacesRoutes {
           child: BlocProvider(
             create: (context) => ThemeRatingBloc(
               themeRatingsRepository: GetIt.instance<ThemeRatingsRepository>(),
+              loginRepository: GetIt.instance<LoginRepository>(),
             )..add(
                 FetchThemeRatingsEvent(
                   eventPlace: state.extra as EventPlace,

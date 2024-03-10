@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tup_ar/core/errors/exception.dart';
 import 'package:tup_ar/features/ThemeRating/data/datasources/theme_ratings_remote_datasource.dart';
@@ -18,7 +16,6 @@ class ThemeRatingsRemoteDatasourceImpl implements ThemeRatingsRemoteDatasource {
     required String eventPlaceId,
   }) async {
     try {
-      log('test');
       final querySnapshot = await _firestore
           .collection('theme_ratings_collection')
           .where(
@@ -32,6 +29,29 @@ class ThemeRatingsRemoteDatasourceImpl implements ThemeRatingsRemoteDatasource {
             {'id': e.id}.entries,
           ));
       }).toList();
+    } catch (e) {
+      throw ThemeRatingsException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<ThemeRating> addThemeRating({
+    required ThemeRatingModel rating,
+  }) async {
+    try {
+      final themeRatingsCollection =
+          _firestore.collection('theme_ratings_collection');
+
+      final themeRatingDocRef = await (await themeRatingsCollection.add(
+        rating.toMap(),
+      ))
+          .get();
+
+      return ThemeRatingModel.fromMap({
+        ...rating.toMap(
+          id: themeRatingDocRef.id,
+        ),
+      });
     } catch (e) {
       throw ThemeRatingsException(message: e.toString());
     }
