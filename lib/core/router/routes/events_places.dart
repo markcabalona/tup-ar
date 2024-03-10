@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_place_view.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_places_page.dart';
+import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
+import 'package:tup_ar/features/ThemeRating/presentation/pages/theme_rating_page.dart';
 
 abstract class EventsPlacesRoutes {
   static final routes = [
@@ -33,6 +36,27 @@ abstract class EventsPlacesRoutes {
             ),
           );
         },
+      ),
+      GoRoute(
+        name: AppRoutes.themeRating.name,
+        path: AppRoutes.themeRating.path,
+        redirect: (context, state) {
+          if (state.extra is! EventPlace) {
+            return AppRoutes.pageNotFound.path;
+          }
+          return null;
+        },
+        pageBuilder: (context, state) => MaterialPage(
+          child: BlocProvider(
+            create: (context) => ThemeRatingBloc()
+              ..add(
+                FetchThemeRatingsEvent(
+                  eventPlace: state.extra as EventPlace,
+                ),
+              ),
+            child: const ThemeRatingPage(),
+          ),
+        ),
       ),
     ],
   );

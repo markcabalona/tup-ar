@@ -94,6 +94,7 @@ class EventsPlaceCardWidget extends StatelessWidget {
   }
 
   void _onTapViewSimulation() {
+    AppRouter.pop();
     AppRouter.push(
       AppRoutes.singleEventsPlace,
       extra: eventPlace,
@@ -104,6 +105,13 @@ class EventsPlaceCardWidget extends StatelessWidget {
   }
 
   void _onTapViewRatings() {
-    // TODO: Navigate to ratings page
+    AppRouter.pop();
+    AppRouter.push(
+      AppRoutes.themeRating,
+      extra: eventPlace,
+      pathParameters: {
+        'id': eventPlace.id,
+      },
+    );
   }
 }
