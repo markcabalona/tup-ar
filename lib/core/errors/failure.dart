@@ -18,3 +18,10 @@ class FaqsFailure {
     required this.errorMessage,
   });
 }
+
+class ThemeRatingsFailure {
+  final String errorMessage;
+  const ThemeRatingsFailure({
+    required this.errorMessage,
+  });
+}

@@ -1,16 +1,20 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
 import 'package:tup_ar/features/ThemeRating/domain/entities/theme_rating.dart';
+import 'package:tup_ar/features/ThemeRating/domain/repositories/theme_ratings_repository.dart';
 
 part 'theme_rating_event.dart';
 part 'theme_rating_state.dart';
 
 class ThemeRatingBloc extends Bloc<ThemeRatingEvent, ThemeRatingState> {
-  ThemeRatingBloc() : super(const ThemeRatingInitial()) {
+  final ThemeRatingsRepository _themeRatingsRepository;
+  ThemeRatingBloc({
+    required ThemeRatingsRepository themeRatingsRepository,
+  })  : _themeRatingsRepository = themeRatingsRepository,
+        super(const ThemeRatingInitial()) {
     on<FetchThemeRatingsEvent>(_onFetchThemeRatingsEvent);
   }
 
@@ -18,25 +22,28 @@ class ThemeRatingBloc extends Bloc<ThemeRatingEvent, ThemeRatingState> {
     FetchThemeRatingsEvent event,
     Emitter<ThemeRatingState> emit,
   ) async {
-    await Future.delayed(const Duration(seconds: 1));
-    emit(
-      ThemeRatingsLoaded(
-        eventPlace: event.eventPlace,
-        themeRatings: List.generate(
-          20,
-          (index) => ThemeRating(
-            id: index.toString(),
-            createdAt:
-                DateTime.now().add(Duration(seconds: Random().nextInt(86400))),
-            rating: Random().nextInt(5) + 1,
-            eventPlaceId: event.eventPlace.id,
-            userId: 'User-$index',
-            comment: Random().nextBool()
-                ? 'Pariatur consectetur ad et velit eu et nostrud sunt nulla nostrud. Ullamco esse adipisicing ex mollit deserunt aute reprehenderit ut.'
-                : null,
+    emit(const ThemeRatingsLoading());
+    final result = await _themeRatingsRepository.fetchRatings(
+      eventPlaceId: event.eventPlace.id,
+    );
+
+    result.fold(
+      (failure) {
+        emit(
+          ThemeRatingsError(
+            eventPlace: event.eventPlace,
+            message: failure.errorMessage,
           ),
-        ),
-      ),
+        );
+      },
+      (ratings) {
+        emit(
+          ThemeRatingsLoaded(
+            eventPlace: event.eventPlace,
+            themeRatings: ratings,
+          ),
+        );
+      },
     );
   }
 }
