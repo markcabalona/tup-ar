@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
+import 'package:tup_ar/core/widgets/user_profile_image.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 
 class ProfileIcon extends StatelessWidget {
@@ -10,34 +10,12 @@ class ProfileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      maxRadius: 32,
-      child: ClipOval(
-        clipBehavior: Clip.hardEdge,
-        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            final imageUrl = state.userData?.profileImage;
-
-            if (imageUrl != null) {
-              return Image.network(
-                imageUrl,
-                errorBuilder: (context, error, stackTrace) => _defaultIcon,
-              );
-            }
-            return _defaultIcon;
-          },
-        ),
-      ),
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        return UserProfileImage(
+          imageUrl: state.userData?.profileImage,
+        );
+      },
     );
   }
-
-  Widget get _defaultIcon => Padding(
-        padding: PaddingConstants.all,
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Icon(
-            Icons.person,
-            size: constraints.maxHeight,
-          );
-        }),
-      );
 }
