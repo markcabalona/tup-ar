@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/features/ThemeRating/domain/entities/theme_rating.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
+import 'package:tup_ar/features/ThemeRating/presentation/widgets/add_theme_rating_widget.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/comments/theme_rating_comment_list.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/ratings/theme_ratings_widget.dart';
 
@@ -21,13 +22,7 @@ class ThemeRatingPage extends StatelessWidget {
               state.eventPlace?.name ?? '',
             ),
             actions: [
-              if (state.eventPlace != null)
-                IconButton(
-                  onPressed: () {
-                    // TODO: navigate to add-rating page
-                  },
-                  icon: const Icon(Icons.add),
-                ),
+              if (state.eventPlace != null) const AddThemeRatingWidget(),
             ],
           ),
           body: _buildPageBody(state),
@@ -60,7 +55,9 @@ class ThemeRatingPage extends StatelessWidget {
     }
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(width: double.infinity),
           ThemeRatingsWidget(
             ratings: ratings,
           ),

@@ -16,11 +16,13 @@ class ThemeRatingBloc extends Bloc<ThemeRatingEvent, ThemeRatingState> {
   ThemeRatingBloc({
     required ThemeRatingsRepository themeRatingsRepository,
     required LoginRepository loginRepository,
+    ThemeRatingState initialState = const ThemeRatingInitial(),
   })  : _themeRatingsRepository = themeRatingsRepository,
         _loginRepository = loginRepository,
-        super(const ThemeRatingInitial()) {
+        super(initialState) {
     on<FetchThemeRatingsEvent>(_onFetchThemeRatingsEvent);
     on<AddThemeRatingEvent>(_onAddThemeRatingEvent);
+    on<UpdateAddThemeRatingFormEvent>(_onUpdateThemeRatingFormEvent);
   }
 
   FutureOr<void> _onFetchThemeRatingsEvent(
@@ -63,30 +65,46 @@ class ThemeRatingBloc extends Bloc<ThemeRatingEvent, ThemeRatingState> {
   ) async {
     final userResult = await _loginRepository.checkUserLogin();
 
-    userResult.fold(
+    final user = userResult.fold(
       (l) => null,
-      (r) async {
-        if (r != null) {
-          final result = await _themeRatingsRepository.addRating(
-            rating: event.rating,
-            eventPlaceId: event.eventPlace.id,
-            userId: r.userId,
-            comment: event.comment,
-            userProfileImage: r.profileImage,
-            username: r.firstName,
-          );
-          result.fold(
-            (l) {},
-            (r) {
-              add(
-                FetchThemeRatingsEvent(
-                  eventPlace: event.eventPlace,
-                ),
-              );
-            },
-          );
-        }
-      },
+      (r) => r,
     );
+    if (user != null) {
+      final result = await _themeRatingsRepository.addRating(
+        rating: event.rating,
+        eventPlaceId: event.eventPlace.id,
+        userId: user.userId,
+        comment: event.comment,
+        userProfileImage: event.isAnonymous ? null : user.profileImage,
+        username: event.isAnonymous ? null : user.firstName,
+      );
+      result.fold(
+        (l) {},
+        (r) {
+          emit(AddThemeRatingSuccessState());
+        },
+      );
+    }
+  }
+
+  FutureOr<void> _onUpdateThemeRatingFormEvent(
+    UpdateAddThemeRatingFormEvent event,
+    Emitter<ThemeRatingState> emit,
+  ) {
+    if (state is! AddThemeRatingState) {
+      emit(
+        const AddThemeRatingState().copyWith(
+          comment: event.comment,
+          isAnonymous: event.isAnonymous,
+          rating: event.rating,
+        ),
+      );
+    } else {
+      emit((state as AddThemeRatingState).copyWith(
+        comment: event.comment,
+        isAnonymous: event.isAnonymous,
+        rating: event.rating,
+      ));
+    }
   }
 }

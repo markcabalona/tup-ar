@@ -4,6 +4,7 @@ import 'package:tup_ar/features/ThemeRating/data/datasources/theme_ratings_remot
 import 'package:tup_ar/features/ThemeRating/data/datasources/theme_ratings_remote_datasource_impl.dart';
 import 'package:tup_ar/features/ThemeRating/data/repositories/theme_ratings_repository_impl.dart';
 import 'package:tup_ar/features/ThemeRating/domain/repositories/theme_ratings_repository.dart';
+import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
 
 void initializeThemeRatingsDependencies() {
   final serviceLocator = GetIt.instance;
@@ -18,4 +19,9 @@ void initializeThemeRatingsDependencies() {
       themeRatingsRemoteDatasource: serviceLocator(),
     ),
   );
+
+  serviceLocator.registerLazySingleton<ThemeRatingBloc>(() => ThemeRatingBloc(
+        themeRatingsRepository: serviceLocator(),
+        loginRepository: serviceLocator(),
+      ));
 }

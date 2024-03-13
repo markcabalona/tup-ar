@@ -9,6 +9,7 @@ import 'package:tup_ar/features/EventPlaces/presentation/pages/event_place_view.
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_places_page.dart';
 import 'package:tup_ar/features/ThemeRating/domain/repositories/theme_ratings_repository.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
+import 'package:tup_ar/features/ThemeRating/presentation/pages/add_theme_rating_page.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/pages/theme_rating_page.dart';
 
 abstract class EventsPlacesRoutes {
@@ -62,6 +63,31 @@ abstract class EventsPlacesRoutes {
             child: const ThemeRatingPage(),
           ),
         ),
+        routes: [
+          GoRoute(
+            name: AppRoutes.addThemeRating.name,
+            path: AppRoutes.addThemeRating.path,
+            redirect: (context, state) {
+              if (state.extra is! EventPlace) {
+                return AppRoutes.pageNotFound.path;
+              }
+              return null;
+            },
+            pageBuilder: (context, state) => MaterialPage(
+              child: BlocProvider(
+                create: (context) => ThemeRatingBloc(
+                  themeRatingsRepository:
+                      GetIt.instance<ThemeRatingsRepository>(),
+                  loginRepository: GetIt.instance<LoginRepository>(),
+                  initialState: const AddThemeRatingState(),
+                ),
+                child: AddThemeRatingPage(
+                  eventPlace: state.extra as EventPlace,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );

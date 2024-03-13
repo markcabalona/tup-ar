@@ -75,13 +75,13 @@ abstract class AppRouter {
     );
   }
 
-  static void push<T>(
+  static Future<T?> push<T extends Object?>(
     AppRoutes route, {
-    T? extra,
+    Object? extra,
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
-    _router.pushNamed(
+    return _router.pushNamed<T>(
       route.name,
       extra: extra,
       pathParameters: pathParameters,

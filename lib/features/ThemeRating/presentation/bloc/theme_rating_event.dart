@@ -38,3 +38,22 @@ final class AddThemeRatingEvent extends ThemeRatingEvent {
         isAnonymous,
       ];
 }
+
+final class UpdateAddThemeRatingFormEvent extends ThemeRatingEvent {
+  final bool? isAnonymous;
+  final String? comment;
+  final int? rating;
+
+  const UpdateAddThemeRatingFormEvent({
+    this.isAnonymous,
+    this.comment,
+    this.rating,
+  });
+
+  @override
+  List<Object?> get props => [
+        isAnonymous,
+        comment,
+        rating,
+      ];
+}

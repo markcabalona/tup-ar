@@ -5,6 +5,7 @@ enum AppRoutes {
   singleEventsPlace(':id'),
   faqs('/faqs'),
   themeRating('ratings/:id'),
+  addThemeRating('add-rating'),
   pageNotFound('/page-not-found');
 
   final String path;

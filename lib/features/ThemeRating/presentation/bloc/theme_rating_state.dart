@@ -48,3 +48,36 @@ final class ThemeRatingsError extends ThemeRatingState {
   @override
   List<Object?> get props => [message, eventPlace];
 }
+
+final class AddThemeRatingState extends ThemeRatingState {
+  final bool isAnonymous;
+  final String? comment;
+  final int rating;
+
+  const AddThemeRatingState({
+    this.isAnonymous = false,
+    this.comment,
+    this.rating = 5,
+  });
+
+  AddThemeRatingState copyWith({
+    bool? isAnonymous,
+    String? comment,
+    int? rating,
+  }) {
+    return AddThemeRatingState(
+      isAnonymous: isAnonymous ?? this.isAnonymous,
+      rating: rating ?? this.rating,
+      comment: comment ?? this.comment,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        isAnonymous,
+        comment,
+        rating,
+      ];
+}
+
+final class AddThemeRatingSuccessState extends AddThemeRatingState {}
