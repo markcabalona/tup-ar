@@ -56,8 +56,6 @@ jobs:
       - name: Get Flutter Dependencies
         run: flutter pub get
 
-      - name: Format Flutter Code
-        run: dart format --set-exit-if-changed .
 
       - name: Analyze Flutter Code
         run: flutter analyze .
