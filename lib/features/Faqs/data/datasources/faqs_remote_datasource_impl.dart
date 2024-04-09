@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tup_ar/core/errors/exception.dart';
 import 'package:tup_ar/features/Faqs/data/datasources/faqs_remote_datasource.dart';

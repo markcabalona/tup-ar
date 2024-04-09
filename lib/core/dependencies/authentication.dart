@@ -14,9 +14,11 @@ void initialzieAuthDependencies() {
       firebaseAuth: FirebaseAuth.instance,
     ),
   );
-  serviceLocator.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(
-        remoteDatasource: serviceLocator(),
-      ),);
+  serviceLocator.registerLazySingleton<LoginRepository>(
+    () => LoginRepositoryImpl(
+      remoteDatasource: serviceLocator(),
+    ),
+  );
 
   serviceLocator.registerLazySingleton<AuthenticationBloc>(
     () => AuthenticationBloc(

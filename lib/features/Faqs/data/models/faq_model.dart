@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tup_ar/features/Faqs/domain/entities/faq.dart';
 

@@ -13,7 +13,8 @@ class FaqsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSe0ycS_zJ4mNJYEP8wXCUw3MlTrMd2P0sbQCFJ-3tuROMqZtQ/viewform');
+          final url = Uri.parse(
+              'https://docs.google.com/forms/d/e/1FAIpQLSe0ycS_zJ4mNJYEP8wXCUw3MlTrMd2P0sbQCFJ-3tuROMqZtQ/viewform');
           launchUrl(url);
         },
         child: const Icon(
