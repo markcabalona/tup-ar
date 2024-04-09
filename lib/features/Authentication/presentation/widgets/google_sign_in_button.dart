@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tup_ar/core/constants/assets_constants.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({

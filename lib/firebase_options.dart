@@ -24,7 +24,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return tupArProject;
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for ios - '
@@ -52,7 +52,15 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
+  static const FirebaseOptions tupArWebProject = FirebaseOptions(
+    apiKey: 'AIzaSyDLPzwVRY6XYwmTEPRbaXC-Dg7-gVFGg-g',
+    appId: '1:470784997045:android:1a60c9dcb1da68496170fc',
+    messagingSenderId: '470784997045',
+    projectId: 'tup-ar-web',
+    storageBucket: 'tup-ar-web.appspot.com',
+  );
+
+  static const FirebaseOptions tupArProject = FirebaseOptions(
     apiKey: 'AIzaSyCQIXfV7By-IiRDPrJnLf4ABvEpUN1xK7o',
     appId: '1:1070591445927:android:cefe4b85d937ba3f458482',
     messagingSenderId: '1070591445927',

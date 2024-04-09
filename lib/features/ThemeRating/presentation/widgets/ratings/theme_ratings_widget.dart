@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
 import 'package:tup_ar/features/ThemeRating/domain/entities/theme_rating.dart';
+import 'package:tup_ar_core/constants/padding_constants.dart';
 
 part '_average_rating_widget.dart';
 part '_detailed_ratings_widget.dart';

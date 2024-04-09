@@ -25,3 +25,10 @@ class ThemeRatingsFailure {
     required this.errorMessage,
   });
 }
+
+class EventsPlacesFailure {
+  final String errorMessage;
+  const EventsPlacesFailure({
+    required this.errorMessage,
+  });
+}

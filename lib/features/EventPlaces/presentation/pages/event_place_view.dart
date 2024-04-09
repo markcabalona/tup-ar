@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -20,7 +21,7 @@ class _EventPlaceViewState extends State<EventPlaceView> {
 
   @override
   void dispose() {
-    controller.quit();
+    // controller.unload();
     controller.dispose();
     super.dispose();
   }
@@ -54,6 +55,12 @@ class _EventPlaceViewState extends State<EventPlaceView> {
     if (isPaused && isReady) {
       controller.resume();
     }
+
+    await controller.postMessage(
+      'ContentParent',
+      'LoadContent',
+      widget.eventPlace.modelUrl,
+    );
   }
 
   void onUnityMessage(handler) {}

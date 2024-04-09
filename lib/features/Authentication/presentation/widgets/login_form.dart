@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
-import 'package:tup_ar/core/utils/form_validator.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/google_sign_in_button.dart';
+import 'package:tup_ar_core/constants/padding_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
+import 'package:tup_ar_core/utils/form_validator.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -71,7 +71,7 @@ class LoginForm extends StatelessWidget {
                   text: AuthConstants.registerText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   recognizer: TapGestureRecognizer()..onTap = _onTapRegister,
                 ),

@@ -28,10 +28,26 @@ extern void SceneLoader_SwitchNative_m68C165016C6A7B1F29960507F65455523EA3A5F8 (
 extern void SceneLoader_UnloadNative_mA699427D00E7DD75BD5EFA4B0D54AFE5A0AFEACA (void);
 extern void SceneLoader_QuitNative_mFE5B0B163F9D560A10ADB3574AFE755BAF6BFA43 (void);
 extern void SceneLoader__ctor_m2248766DF38AF07562AD31501C7275B8DF1B7D29 (void);
-extern void Readme__ctor_m69C325C4C171DCB0312B646A9034AA91EA8C39C6 (void);
-extern void Section__ctor_m5F732533E4DFC0167D965E5F5DB332E46055399B (void);
-extern void VuforiaLicense_GetLicenseKey_m796D51E5EF1C53F3D62BA4EA8806AC1FB1A5E3C4 (void);
-extern void VuforiaLicense__ctor_m094B92B3323DFFD79ADB696474D5D158C95E291B (void);
+extern void API_GetBundleObject_mE28EEFC0C032089BF7AB0F3E6BDC336F26D0C70E (void);
+extern void API_GetDisplayBundleRoutine_m28AF1F114E680390183F7D617187A7DC045149C1 (void);
+extern void API__ctor_m76269A9650B4FD1720EEB26AE7EF8CD80FDF544D (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1__ctor_m34A0C9528283030FDE54CD6274FCE39CF107E5E5 (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1_System_IDisposable_Dispose_m3F43C9DC9C53B24D4A23A6D3152217E210EE1030 (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1_MoveNext_m01CAE0CE7E51D6383716745D6E65C281C0FE3211 (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mB508EB92B27F1165036831AD22E61E6AD66AB1DA (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_IEnumerator_Reset_m73737E4ED7B31D2C77A607C4D2658DA8CB88B20B (void);
+extern void U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_IEnumerator_get_Current_m0B46123A32FF19D38104905635F048EB579D5901 (void);
+extern void ContentController_LoadContent_m3861314344DE1863DAD98FDE82DF89D292F5FBF5 (void);
+extern void ContentController_OnContentLoaded_m694001227DA87479C3E4FE4EFDA3A5692C3B5604 (void);
+extern void ContentController_DestroyAllChildren_mD79A0261D81EE6AF4FBACEF4AFB978453223F9C2 (void);
+extern void ContentController__ctor_m8B95B3D5A0DDAABBD574EF257FCD9DB367204632 (void);
+extern void PlaceContent_Update_m4F885C852FDD641DAFA637C80CE9FE84294E2066 (void);
+extern void PlaceContent_IsClickOverUI_mA28F50768CE6DB6D7AC0EEF10E026A2330630F07 (void);
+extern void PlaceContent__ctor_mA829455182EA31AA0631FDDDFD0C7BD60132AAC1 (void);
+extern void ToggleAR_OnValueChanged_mF68F168087FDC9EAD33CE837B626521906738026 (void);
+extern void ToggleAR_VisualizePlanes_m520DDF36E1E334BE2EB3FA4DD586F746E0D17C04 (void);
+extern void ToggleAR_VisualizePoints_mB97DDE7FF8054E75A11A8F19AA1ABC85BB2D9899 (void);
+extern void ToggleAR__ctor_mED30BEEF85C41C7E6988CC5930BBE845F52C2FDE (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
 extern void NativeAPI_OnSceneLoaded_m200A791C356A252E1D5F2BB13BC2CED455A02259 (void);
@@ -67,7 +83,7 @@ extern void MessageHandlerDelegate__ctor_m287CBD25D77011FC5A52D1090F6CC31353AB63
 extern void MessageHandlerDelegate_Invoke_mD1EC9E1841D5014C40A26D4C4BA076482FFC8A4B (void);
 extern void MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D (void);
 extern void MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16 (void);
-static Il2CppMethodPointer s_methodPointers[68] = 
+static Il2CppMethodPointer s_methodPointers[84] = 
 {
 	NULL,
 	NULL,
@@ -93,10 +109,26 @@ static Il2CppMethodPointer s_methodPointers[68] =
 	SceneLoader_UnloadNative_mA699427D00E7DD75BD5EFA4B0D54AFE5A0AFEACA,
 	SceneLoader_QuitNative_mFE5B0B163F9D560A10ADB3574AFE755BAF6BFA43,
 	SceneLoader__ctor_m2248766DF38AF07562AD31501C7275B8DF1B7D29,
-	Readme__ctor_m69C325C4C171DCB0312B646A9034AA91EA8C39C6,
-	Section__ctor_m5F732533E4DFC0167D965E5F5DB332E46055399B,
-	VuforiaLicense_GetLicenseKey_m796D51E5EF1C53F3D62BA4EA8806AC1FB1A5E3C4,
-	VuforiaLicense__ctor_m094B92B3323DFFD79ADB696474D5D158C95E291B,
+	API_GetBundleObject_mE28EEFC0C032089BF7AB0F3E6BDC336F26D0C70E,
+	API_GetDisplayBundleRoutine_m28AF1F114E680390183F7D617187A7DC045149C1,
+	API__ctor_m76269A9650B4FD1720EEB26AE7EF8CD80FDF544D,
+	U3CGetDisplayBundleRoutineU3Ed__1__ctor_m34A0C9528283030FDE54CD6274FCE39CF107E5E5,
+	U3CGetDisplayBundleRoutineU3Ed__1_System_IDisposable_Dispose_m3F43C9DC9C53B24D4A23A6D3152217E210EE1030,
+	U3CGetDisplayBundleRoutineU3Ed__1_MoveNext_m01CAE0CE7E51D6383716745D6E65C281C0FE3211,
+	U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mB508EB92B27F1165036831AD22E61E6AD66AB1DA,
+	U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_IEnumerator_Reset_m73737E4ED7B31D2C77A607C4D2658DA8CB88B20B,
+	U3CGetDisplayBundleRoutineU3Ed__1_System_Collections_IEnumerator_get_Current_m0B46123A32FF19D38104905635F048EB579D5901,
+	ContentController_LoadContent_m3861314344DE1863DAD98FDE82DF89D292F5FBF5,
+	ContentController_OnContentLoaded_m694001227DA87479C3E4FE4EFDA3A5692C3B5604,
+	ContentController_DestroyAllChildren_mD79A0261D81EE6AF4FBACEF4AFB978453223F9C2,
+	ContentController__ctor_m8B95B3D5A0DDAABBD574EF257FCD9DB367204632,
+	PlaceContent_Update_m4F885C852FDD641DAFA637C80CE9FE84294E2066,
+	PlaceContent_IsClickOverUI_mA28F50768CE6DB6D7AC0EEF10E026A2330630F07,
+	PlaceContent__ctor_mA829455182EA31AA0631FDDDFD0C7BD60132AAC1,
+	ToggleAR_OnValueChanged_mF68F168087FDC9EAD33CE837B626521906738026,
+	ToggleAR_VisualizePlanes_m520DDF36E1E334BE2EB3FA4DD586F746E0D17C04,
+	ToggleAR_VisualizePoints_mB97DDE7FF8054E75A11A8F19AA1ABC85BB2D9899,
+	ToggleAR__ctor_mED30BEEF85C41C7E6988CC5930BBE845F52C2FDE,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 	NativeAPI_OnSceneLoaded_m200A791C356A252E1D5F2BB13BC2CED455A02259,
@@ -138,7 +170,7 @@ static Il2CppMethodPointer s_methodPointers[68] =
 	MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D,
 	MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16,
 };
-static const int32_t s_InvokerIndices[68] = 
+static const int32_t s_InvokerIndices[84] = 
 {
 	0,
 	0,
@@ -148,72 +180,88 @@ static const int32_t s_InvokerIndices[68] =
 	0,
 	0,
 	0,
-	2334,
-	2334,
-	2057,
-	2334,
-	2334,
-	2334,
-	2057,
-	2334,
-	2334,
-	2334,
-	2048,
-	2334,
-	2334,
-	2334,
-	2334,
-	2334,
-	2334,
-	2334,
-	4485,
-	2334,
-	4532,
-	2334,
-	3914,
-	4381,
-	4517,
-	4517,
-	4517,
-	2334,
+	2798,
+	2798,
+	2426,
+	2798,
+	2798,
+	2798,
+	2426,
+	2798,
+	2798,
+	2798,
+	2414,
+	2798,
+	2798,
+	2798,
+	2798,
+	2798,
+	1080,
+	922,
+	2798,
+	2414,
+	2798,
+	2662,
+	2721,
+	2798,
+	2721,
+	2426,
+	2426,
+	2798,
+	2798,
+	2798,
+	2662,
+	2798,
+	2378,
+	2378,
+	2378,
+	2798,
+	5548,
+	2798,
+	4736,
+	5365,
+	5527,
+	5527,
+	5527,
+	2798,
 	0,
 	0,
 	0,
 	0,
-	4201,
+	5093,
 	0,
-	546,
-	2057,
-	2334,
-	4478,
-	2057,
-	2057,
-	2057,
-	2057,
-	2334,
-	1465,
-	2334,
-	2334,
-	2334,
-	2057,
-	2057,
-	2057,
-	2057,
-	2334,
-	1431,
-	2057,
-	775,
-	2057,
-	1431,
-	2057,
-	775,
-	2057,
+	664,
+	2426,
+	2798,
+	5475,
+	2426,
+	2426,
+	2426,
+	2426,
+	2798,
+	1631,
+	2798,
+	2798,
+	2798,
+	2426,
+	2426,
+	2426,
+	2426,
+	2798,
+	1596,
+	2426,
+	922,
+	2426,
+	1596,
+	2426,
+	922,
+	2426,
 };
 static const Il2CppTokenRangePair s_rgctxIndices[3] = 
 {
 	{ 0x02000002, { 0, 29 } },
-	{ 0x0200000C, { 29, 11 } },
-	{ 0x0600002A, { 40, 2 } },
+	{ 0x0200000E, { 29, 11 } },
+	{ 0x0600003A, { 40, 2 } },
 };
 extern const uint32_t g_rgctx_U3CU3Ef__AnonymousType0_4_t93FD0713D40011506D6B5581D9D5064D1A1A31B8;
 extern const uint32_t g_rgctx_U3CidU3Ej__TPar_tB4283D6614B0A1B9713411CF590AE6445EC76C76;
@@ -306,7 +354,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	68,
+	84,
 	s_methodPointers,
 	0,
 	NULL,

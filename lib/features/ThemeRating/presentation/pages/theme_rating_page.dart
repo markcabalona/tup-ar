@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/features/ThemeRating/domain/entities/theme_rating.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/add_theme_rating_widget.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/comments/theme_rating_comment_list.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/widgets/ratings/theme_ratings_widget.dart';
+import 'package:tup_ar_core/cubits/background_tasks_cubit.dart';
 
 class ThemeRatingPage extends StatelessWidget {
   const ThemeRatingPage({super.key});
@@ -32,7 +31,7 @@ class ThemeRatingPage extends StatelessWidget {
   }
 
   bool _buildWhen(previous, current) {
-    final backgroundTaskCubit = GetIt.instance<BackgroundTasksCubit>();
+    final backgroundTaskCubit = BackgroundTask.instance.cubit;
     if (current is ThemeRatingsLoaded) {
       backgroundTaskCubit.onIdle();
     }

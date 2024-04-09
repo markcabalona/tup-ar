@@ -4,5 +4,9 @@ sealed class EventPlacesEvent extends Equatable {
   const EventPlacesEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
+}
+
+class FetchEventPlacesEvent extends EventPlacesEvent {
+  const FetchEventPlacesEvent();
 }

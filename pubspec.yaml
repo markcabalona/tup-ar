@@ -26,8 +26,10 @@ dependencies:
   auto_size_text: ^3.0.0
   cloud_firestore: ^4.14.0
   url_launcher: ^6.1.14
-  google_fonts: ^6.1.0
-  intl: ^0.19.0
+  tup_ar_core:
+    git:
+      url: https://github.com/markcabalona/tup-ar-core
+      ref: main
 
 dev_dependencies:
   flutter_test:

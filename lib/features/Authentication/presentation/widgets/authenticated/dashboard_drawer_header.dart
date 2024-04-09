@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/features/Authentication/domain/entities/user_data.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authenticated/profile_icon.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
 
 class DashboardDrawerHeader extends StatelessWidget {
   const DashboardDrawerHeader({

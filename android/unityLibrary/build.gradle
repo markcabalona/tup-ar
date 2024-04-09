@@ -1,23 +1,20 @@
-allprojects {
-    buildscript {
-        repositories {
-            google()
-        }
-    }
-}
-
 apply plugin: 'com.android.library'
 
 
 dependencies {
-    implementation 'com.google.ar:core:1.36.0'
     implementation(name: 'unity-classes', ext:'jar')
-    implementation(name: 'VuforiaEngine', ext:'aar')
+    implementation(name: 'arcore_client', ext:'aar')
+    implementation(name: 'UnityAds', ext:'aar')
+    implementation(name: 'UnityARCore', ext:'aar')
+    implementation(name: 'common', ext:'aar')
+    implementation(name: 'billing-5.1.0', ext:'aar')
+    implementation(name: 'ARPresto', ext:'aar')
+    implementation(name: 'unityandroidpermissions', ext:'aar')
+    implementation project('xrmanifest.androidlib')
 
 }
 
 android {
-    ndkPath "C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK"
 
     compileSdkVersion 33
     buildToolsVersion '32.0.0'
@@ -28,13 +25,13 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 33
         ndk {
-            abiFilters 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
         versionCode 1
-        versionName '1.0.2'
+        versionName '0.1'
         consumerProguardFiles 'proguard-unity.txt'
     }
 
@@ -48,6 +45,7 @@ android {
     }
 
     packagingOptions {
+        doNotStrip '*/armeabi-v7a/*.so'
         doNotStrip '*/arm64-v8a/*.so'
     }
 }
@@ -65,7 +63,6 @@ def BuildIl2Cpp(String workingDir, String configuration, String architecture, St
     commandLineArgs.add("--architecture=" + architecture)
     commandLineArgs.add("--outputpath=" + workingDir + "/src/main/jniLibs/" + abi + "/libil2cpp.so")
     commandLineArgs.add("--baselib-directory=" + workingDir + "/src/main/jniStaticLibs/" + abi)
-    commandLineArgs.add("--incremental-g-c-time-slice=3")
     commandLineArgs.add("--configuration=" + configuration)
     commandLineArgs.add("--dotnetprofile=unityaot-linux")
     commandLineArgs.add("--profiler-report")
@@ -95,6 +92,7 @@ def BuildIl2Cpp(String workingDir, String configuration, String architecture, St
 android {
     task BuildIl2CppTask {
         doLast {
+              BuildIl2Cpp(projectDir.toString().replaceAll('\\\\', '/'), 'Release', 'armv7', 'armeabi-v7a', [  ] as String[]);
               BuildIl2Cpp(projectDir.toString().replaceAll('\\\\', '/'), 'Release', 'arm64', 'arm64-v8a', [  ] as String[]);
         }
     }

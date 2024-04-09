@@ -18,3 +18,10 @@ class ThemeRatingsException implements Exception {
     required this.message,
   });
 }
+
+class EventsPlacesException implements Exception {
+  final String message;
+  const EventsPlacesException({
+    required this.message,
+  });
+}

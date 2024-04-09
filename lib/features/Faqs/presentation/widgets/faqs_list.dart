@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
-import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/features/Faqs/domain/entities/faq.dart';
 import 'package:tup_ar/features/Faqs/presentation/cubit/faqs_cubit.dart';
+import 'package:tup_ar_core/constants/padding_constants.dart';
+import 'package:tup_ar_core/cubits/background_tasks_cubit.dart';
 
 class FaqsList extends StatelessWidget {
   const FaqsList({super.key});
@@ -31,7 +31,7 @@ class FaqsList extends StatelessWidget {
   }
 
   List<Faq> _selector(state) {
-    final backgroundTaskCubit = GetIt.instance<BackgroundTasksCubit>();
+    final backgroundTaskCubit = BackgroundTask.instance.cubit;
     GetIt.instance<FaqsCubit>().fetchFaqs();
     if (state is FaqsLoaded) {
       backgroundTaskCubit.onIdle();

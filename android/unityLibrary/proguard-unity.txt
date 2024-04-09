@@ -19,5 +19,3 @@
 -dontwarn com.google.android.play.core.tasks.OnSuccessListener
 -dontwarn com.google.android.play.core.tasks.RuntimeExecutionException
 -dontwarn com.google.android.play.core.tasks.Task
--keep class com.unity.androidnotifications.UnityNotificationManager { public *; }
--keep class com.unity.androidnotifications.NotificationCallback { *; }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tup_ar/features/ThemeRating/data/datasources/theme_ratings_remote_datasource.dart';
 import 'package:tup_ar/features/ThemeRating/data/datasources/theme_ratings_remote_datasource_impl.dart';
@@ -10,7 +11,7 @@ void initializeThemeRatingsDependencies() {
   final serviceLocator = GetIt.instance;
   serviceLocator.registerLazySingleton<ThemeRatingsRemoteDatasource>(
     () => ThemeRatingsRemoteDatasourceImpl(
-      firestore: FirebaseFirestore.instance,
+      firestore: FirebaseFirestore.instanceFor(app: Firebase.app('tup-ar-web')),
     ),
   );
 

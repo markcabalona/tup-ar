@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tup_ar/core/constants/grid_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
+import 'package:tup_ar/core/widgets/app_icon.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/login_form.dart';
+import 'package:tup_ar_core/constants/grid_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -17,9 +18,7 @@ class LoginPage extends StatelessWidget {
         child: Column(
           children: [
             SpacerConstants.largeVertical,
-            FlutterLogo(
-              size: 144,
-            ),
+            AppIcon(),
             SpacerConstants.mediumVertical,
             LoginForm(),
           ],

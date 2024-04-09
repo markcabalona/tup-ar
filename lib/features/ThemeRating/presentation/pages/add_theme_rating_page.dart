@@ -2,11 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
 import 'package:tup_ar/features/ThemeRating/presentation/bloc/theme_rating_bloc.dart';
+import 'package:tup_ar_core/constants/padding_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
 
 class AddThemeRatingPage extends StatelessWidget {
   final EventPlace eventPlace;
@@ -143,7 +143,7 @@ class _StarRatingWidget extends StatelessWidget {
                   height: 40,
                   decoration: BoxDecoration(
                     border: Border.all(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.primary,
                         style:
                             isSelected ? BorderStyle.solid : BorderStyle.none,
                         width: 1,
@@ -157,7 +157,7 @@ class _StarRatingWidget extends StatelessWidget {
                       (i) => Icon(
                         Icons.star,
                         color: isSelected
-                            ? Theme.of(context).primaryColor
+                            ? Theme.of(context).colorScheme.primary
                             : Colors.grey,
                       ),
                     )..add(
@@ -179,11 +179,11 @@ class _StarRatingWidget extends StatelessWidget {
   }
 
   String _buildText(int rating) => switch (rating) {
-        (int rating) when rating == 1 => 'Sobrang Pangit',
-        (int rating) when rating == 2 => 'Pangit',
-        (int rating) when rating == 3 => 'Puwede na',
-        (int rating) when rating == 4 => 'Maganda',
-        (int rating) when rating == 5 => 'Sobrang Ganda',
+        (int rating) when rating == 1 => 'Very poor',
+        (int rating) when rating == 2 => 'Poor',
+        (int rating) when rating == 3 => 'Fair',
+        (int rating) when rating == 4 => 'Good',
+        (int rating) when rating == 5 => 'Very good',
         (_) => '',
       };
 }

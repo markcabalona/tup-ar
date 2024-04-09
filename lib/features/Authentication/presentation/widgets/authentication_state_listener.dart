@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:tup_ar/core/cubits/background_tasks_cubit.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tup_ar_core/cubits/background_tasks_cubit.dart';
 
 class AuthenticationStateListener extends StatelessWidget {
   const AuthenticationStateListener({
@@ -21,7 +20,7 @@ class AuthenticationStateListener extends StatelessWidget {
           previous.errorMessage != current.errorMessage ||
           previous.status != current.status,
       listener: (context, state) {
-        final backgroundTaskCubit = GetIt.instance<BackgroundTasksCubit>();
+        final backgroundTaskCubit = BackgroundTask.instance.cubit;
         switch (state.status) {
           case AuthenticationStatus.authenticating:
             backgroundTaskCubit.onLoading(

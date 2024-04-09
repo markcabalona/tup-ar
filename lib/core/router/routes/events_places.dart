@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
 import 'package:tup_ar/features/Authentication/domain/repositories/login_repository.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
+import 'package:tup_ar/features/EventPlaces/presentation/bloc/event_places_bloc.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_place_view.dart';
 import 'package:tup_ar/features/EventPlaces/presentation/pages/event_places_page.dart';
 import 'package:tup_ar/features/ThemeRating/domain/repositories/theme_ratings_repository.dart';
@@ -20,8 +21,11 @@ abstract class EventsPlacesRoutes {
   static final _eventsPlaceList = GoRoute(
     name: AppRoutes.eventsPlaces.name,
     path: AppRoutes.eventsPlaces.path,
-    pageBuilder: (context, state) => const MaterialPage(
-      child: EventPlacesPage(),
+    pageBuilder: (context, state) => MaterialPage(
+      child: BlocProvider(
+        create: (context) => GetIt.instance<EventPlacesBloc>(),
+        child: const EventPlacesPage(),
+      ),
     ),
     routes: [
       GoRoute(

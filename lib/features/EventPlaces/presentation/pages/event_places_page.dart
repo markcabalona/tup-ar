@@ -1,10 +1,15 @@
+
 import 'package:flutter/material.dart';
-import 'package:tup_ar/core/constants/padding_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/router/app_router.dart';
 import 'package:tup_ar/core/router/routes/app_routes.dart';
+import 'package:tup_ar/core/utils/state_status_enum.dart';
 import 'package:tup_ar/features/Authentication/presentation/widgets/authenticated/dashboard_drawer.dart';
 import 'package:tup_ar/features/EventPlaces/domain/entities/event_place.dart';
+import 'package:tup_ar/features/EventPlaces/presentation/bloc/event_places_bloc.dart';
+import 'package:tup_ar_core/constants/padding_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
+import 'package:tup_ar_core/cubits/background_tasks_cubit.dart';
 
 class EventPlacesPage extends StatelessWidget {
   const EventPlacesPage({super.key});
@@ -16,26 +21,58 @@ class EventPlacesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('vAR'),
       ),
-      body: GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        children: List.generate(
-          10,
-          (index) => EventPlace(
-            id: '${index + 1}',
-            name: "Event Place ${index + 1}",
-            description:
-                'This is a test description for event place ${index + 1}',
-          ),
-        )
-            .map(
-              (e) => EventsPlaceCardWidget(
-                eventPlace: e,
+      body: const EventPlacesList(),
+    );
+  }
+}
+
+class EventPlacesList extends StatelessWidget {
+  const EventPlacesList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<EventPlacesBloc, EventPlacesState,
+        FetchEventsPlacesState>(
+      selector: (state) {
+        return state is FetchEventsPlacesState
+            ? state
+            : const FetchEventsPlacesState(
+                status: StateStatus.initial,
+              );
+      },
+      builder: (context, state) {
+        switch (state.status) {
+          case StateStatus.initial:
+            BlocProvider.of<EventPlacesBloc>(context).add(
+              const FetchEventPlacesEvent(),
+            );
+            break;
+          case StateStatus.loading:
+            BackgroundTask.instance.cubit.onLoading(
+              state.statusMessage,
+            );
+            break;
+          case StateStatus.error:
+            BackgroundTask.instance.cubit.onErrorOccurred(
+              state.statusMessage,
+            );
+            break;
+          case StateStatus.success:
+            BackgroundTask.instance.cubit.onSuccess(
+              state.statusMessage,
+            );
+
+            return ListView.builder(
+              itemCount: state.eventPlaces?.length ?? 0,
+              itemBuilder: (context, index) => EventsPlaceCardWidget(
+                eventPlace: state.eventPlaces![index],
               ),
-            )
-            .toList(),
-      ),
+            );
+        }
+        return const SizedBox();
+      },
     );
   }
 }
@@ -54,8 +91,48 @@ class EventsPlaceCardWidget extends StatelessWidget {
         _onTapCard(context);
       },
       child: Card(
-        child: Center(
-          child: Text(eventPlace.name),
+        clipBehavior: Clip.hardEdge,
+        child: SizedBox(
+          height: 200,
+          // width: 300,
+          child: Stack(
+            children: [
+              const DecoratedBox(
+                decoration: BoxDecoration(
+                    // color: VarColors.cardColorLight.withOpacity(.25),
+                    ),
+                child: SizedBox.expand(),
+              ),
+              if (eventPlace.thumbnailUrl != null)
+                Center(
+                  child: Image.network(
+                    eventPlace.thumbnailUrl!,
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: PaddingConstants.all,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        eventPlace.name,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

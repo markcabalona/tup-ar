@@ -19,7 +19,7 @@ class _StarRatingWidget extends StatelessWidget {
             max,
             (index) => Icon(
               _buildStarIcon(rating, index),
-              color: Colors.yellow,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),

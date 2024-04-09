@@ -1,17 +1,22 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tup_ar/core/dependencies/dependencies.dart';
 import 'package:tup_ar/core/router/app_router.dart';
-import 'package:tup_ar/core/theme/app_theme.dart';
 import 'package:tup_ar/firebase_options.dart';
+import 'package:tup_ar_core/themes/tup_ar_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   await initializeDependencies();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.tupArProject,
+  );
+  await Firebase.initializeApp(
+    name: 'tup-ar-web',
+    options: DefaultFirebaseOptions.tupArWebProject,
+  );
   runApp(const MyApp());
 }
 
@@ -21,17 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'TUP AR',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-        ),
-        useMaterial3: true,
-        inputDecorationTheme: AppTheme.inputDecorationTheme,
-        filledButtonTheme: AppTheme.filledButtonTheme,
-        outlinedButtonTheme: AppTheme.outlinedButtonTheme,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+      title: 'vAR: Venue\'s Augmented Reality',
+      theme: TupArTheme.themeData,
       routeInformationParser: AppRouter.routeInformationParser,
       routeInformationProvider: AppRouter.routeInformationProvider,
       routerDelegate: AppRouter.routerDelegate,

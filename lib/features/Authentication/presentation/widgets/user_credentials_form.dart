@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tup_ar/core/constants/auth_constants.dart';
-import 'package:tup_ar/core/constants/grid_constants.dart';
-import 'package:tup_ar/core/constants/spacer_constants.dart';
-import 'package:tup_ar/core/utils/form_validator.dart';
 import 'package:tup_ar/features/Authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tup_ar_core/constants/grid_constants.dart';
+import 'package:tup_ar_core/constants/spacer_constants.dart';
+import 'package:tup_ar_core/utils/form_validator.dart';
 
 class UserCredentialsForm extends StatelessWidget {
   const UserCredentialsForm({super.key});
